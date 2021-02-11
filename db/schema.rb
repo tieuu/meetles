@@ -10,10 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_102916) do
+ActiveRecord::Schema.define(version: 2021_02_11_124954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fares", force: :cascade do |t|
+    t.time "duration"
+    t.integer "fee"
+    t.bigint "result_station_id", null: false
+    t.bigint "station_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_station_id"], name: "index_fares_on_result_station_id"
+    t.index ["station_id"], name: "index_fares_on_station_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "meetle_id", null: false
+    t.bigint "station_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meetle_id"], name: "index_locations_on_meetle_id"
+    t.index ["station_id"], name: "index_locations_on_station_id"
+    t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "meetles", force: :cascade do |t|
+    t.date "date_time"
+    t.string "activity"
+    t.boolean "active"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_meetles_on_user_id"
+  end
+
+  create_table "result_stations", force: :cascade do |t|
+    t.bigint "station_id", null: false
+    t.bigint "meetle_id", null: false
+    t.integer "vote"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meetle_id"], name: "index_result_stations_on_meetle_id"
+    t.index ["station_id"], name: "index_result_stations_on_station_id"
+  end
+
+  create_table "stations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +75,12 @@ ActiveRecord::Schema.define(version: 2021_02_11_102916) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "fares", "result_stations"
+  add_foreign_key "fares", "stations"
+  add_foreign_key "locations", "meetles"
+  add_foreign_key "locations", "stations"
+  add_foreign_key "locations", "users"
+  add_foreign_key "meetles", "users"
+  add_foreign_key "result_stations", "meetles"
+  add_foreign_key "result_stations", "stations"
 end
