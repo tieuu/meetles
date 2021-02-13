@@ -5,6 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'json'
+require 'open-uri'
+
+url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=train_station&location=35.681382,139.76608399999998&radius=30000&key=AIzaSyCwIpzQNIclviTDcD_ivXtEfD4RYwcppj4"
+stations = open(url).read
+station_list = JSON.parse(stations)
 
 puts "Deleting everything"
 User.destroy_all
@@ -35,11 +41,20 @@ User.create!(
   password: "meetles4"
 )
 
+# puts "seed stations name"
+# 100.times do
+#   Station.create!(
+#     name: station_list['results'].each do |station|
+#       station['name']
+#       )
+#     end
 puts "seed stations name"
-100.times do
+station_list['results'].each do |station|
   Station.create!(
-    name: Faker::Mountain.name
+    name: station['name']
   )
+  puts Station.all
 end
+
 
 puts "Seed Done, Be carefull ... !"
