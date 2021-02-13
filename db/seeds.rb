@@ -5,3 +5,41 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+puts "Deleting everything"
+User.destroy_all
+Station.destroy_all
+
+puts "seed users"
+User.create!(
+  email: "dan@gmail.com",
+  # username: "dan",
+  password: "meetles1"
+)
+
+User.create!(
+  email: "julian@gmail.com",
+  # username: "julian",
+  password: "meetles2"
+)
+
+User.create!(
+  email: "tieu@gmail.com",
+  # username: "tieu",
+  password: "meetles3"
+)
+
+User.create!(
+  email: "vincent@gmail.com",
+  # username: "vincent",
+  password: "meetles4"
+)
+
+puts "seed stations name"
+100.times do
+  Station.create!(
+    name: Faker::Mountain.name
+  )
+end
+
+puts "Seed Done, Be carefull ... !"
