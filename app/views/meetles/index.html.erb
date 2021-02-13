@@ -1,0 +1,4 @@
+<%= simple_form_for @meetle do |f| %>
+  <%= f.input :stations, collection: Station.all.order(:name)  %>
+  <%= f.button :submit %>
+<% end %>
