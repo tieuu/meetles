@@ -1,0 +1,68 @@
+.card-result {
+  overflow: hidden;
+  background: white;
+  // box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+.card-result img {
+  height: 100%;
+  width: 50px;
+}
+
+.card-result h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+.card-result p {
+  font-size: 14px;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.card-result .card-result-head {
+  padding: 16px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  position: center;
+  background-color: $meetle-gray;
+  border-style: solid;
+}
+
+.card-result .card-result-infos {
+  padding: 8px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: center;
+  background-color: white;
+}
+
+.card-result-infos .card-result-user {
+  position: center;
+  right: 16px;
+  top: -20px;
+  width: 40px;
+
+}
+
+.card-spacing {
+  height: 12px;
+  background-color: $body-bg;
+}
+
+.card-border {
+  border-style: solid;
+}
+
+.card-result-head .topright {
+  position: absolute;
+  top: 9px;
+  right: 30px;
+  font-size: 18px;
+}
+
