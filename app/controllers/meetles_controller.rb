@@ -5,9 +5,8 @@ class MeetlesController < ApplicationController
   end
 
   def show
-
     @meetle = Meetle.find(params[:id])
-
+    @user = current_user
   end
 
   def create
@@ -24,7 +23,22 @@ class MeetlesController < ApplicationController
       render :index
     end
   end
+
+  def update
+    @meetle = Meetle.find(params[:id])
+    @user = current_user
+    @station = Station.find(station_params[:stations])
+    if current_user.locations.exists?
+      @location = Location.where(user: current_user)
+      @location.update(station: @station)
+    else
+      @location = Location.new(station: @station, user: @user, meetle: @meetle)
+      @meetle.locations << @location
+    end
+  end
 end
+
+
 
 private
 
