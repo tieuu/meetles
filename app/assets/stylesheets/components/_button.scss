@@ -1,6 +1,14 @@
-.btn {
-  height: 300px;
-  width: 300px;
-  border-radius: 50%;
-  border: 1px solid red;
+.btn-orange {
+  color: $black;
+  border: 5px solid #black;
+  padding: 8px 24px;
+  border-radius: 50px;
+  background: $meetle-orange;
+  transition: background 0.3s ease;
+}
+
+.btn-orange:hover {
+  background-color: black;
+  color: $meetle-orange;
+  opacity: .8;
 }
