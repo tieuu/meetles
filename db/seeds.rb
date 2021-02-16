@@ -13,6 +13,8 @@ stations = open(url).read
 station_list = JSON.parse(stations)
 
 puts "Deleting everything"
+Location.destroy_all
+Meetle.destroy_all
 User.destroy_all
 Station.destroy_all
 
@@ -50,10 +52,10 @@ User.create!(
 #     end
 puts "seed stations name"
 station_list['results'].each do |station|
-  Station.create!(
+  s = Station.create!(
     name: station['name']
   )
-  puts Station.all
+  puts s.name
 end
 
 
