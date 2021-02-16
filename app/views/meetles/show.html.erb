@@ -1,6 +1,7 @@
 <h1>Pages#home</h1>
-<%= simple_form_for @meetle, method: :patch do |f| %>
-  <%= f.input :stations, collection: Station.all.order(:name), placeholder: @user.locations   %>
+<%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
+  <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_location   %>
+  <%= f.input :activity, collection: ['food', 'drink', 'sport', 'fun'], placeholder: @meetle.activity  %>
   <%= f.button :submit %>
 <% end %>
 <h2> <%  @meetle.locations.each do |location| %>
@@ -8,3 +9,4 @@
     <!-- <h2> Your station is  %=  Location.where(user: current_user).station.name %></h2>
          -->
   <% end %>
+  <h2>Meeting for <%= @meetle.activity %> </h2>
