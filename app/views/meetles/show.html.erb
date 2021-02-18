@@ -1,12 +1,31 @@
-<h1>Pages#home</h1>
-<%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
-  <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_location   %>
-  <%= f.input :activity, collection: ['food', 'drink', 'sport', 'fun'], placeholder: @meetle.activity  %>
-  <%= f.button :submit %>
-<% end %>
-<h2> <%  @meetle.locations.each do |location| %>
-    <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
-    <!-- <h2> Your station is  %=  Location.where(user: current_user).station.name %></h2>
-         -->
+<div class="justify-content-center mt-5">
+  <div class="d-flex h-100 text-center">
+    <div class="mx-auto">
+      <div class="row">
+        <h1 class="title col">meetle.</h1>
+        <%= image_tag("question.jpg", :size => "116x175", class:"col-md-auto p-0") %>
+      </div>
+      <div class="title">
+        <p>meet in the middle for...</p>
+        <div class="title row">
+          <% Meetle::ACTIVITY.each do |activity| %>
+            <p class="col" > <%= link_to activity, meetles_path%> </p>
+          <% end %>
+        </div>
+        <!--  <input type="text" placeholder="Search...">
+    <div class="search"></div> -->
+      </div>
+    </div>
+  </div>
+  <h1>Pages#home</h1>
+  <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
+    <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
+    <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %>
+    <%= f.button :submit %>
   <% end %>
-  <h2>Meeting for <%= @meetle.activity %> </h2>
+  <h2> <%  @meetle.locations.each do |location| %>
+      <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
+      <!-- <h2> Your station is  %=  Location.where(user: current_user).station.name %></h2>
+         -->
+    <% end %>
+    <h2>Meeting for <%= @meetle.activity %> </h2>

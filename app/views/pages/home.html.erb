@@ -8,13 +8,13 @@
       <div class="title">
         <p>meet in the middle for...</p>
         <div class="title row">
-          <p class="col" >Coffee</p>
-          <p class="col" >Food</p>
-          <p class="col" >Drinks</p>
-          <p class="col" >Fun</p>
+          <% Meetle::ACTIVITY.each do |activity| %>
+            <p class="col" > <%= link_to activity, meetles_path %> </p>
+          <% end %>
+          <!--  <input type="text" placeholder="Search...">
+          <div class="search"></div> -->
         </div>
-        <!--  <input type="text" placeholder="Search...">
-    <div class="search"></div> -->
       </div>
     </div>
   </div>
+</div>

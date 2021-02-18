@@ -1,5 +1,5 @@
 <%= simple_form_for @meetle, remote: true do |f| %>
   <%= f.input :stations, collection: Station.all.order(:name)  %>
-  <%= f.input :activity, collection: ['food', 'drink', 'sport', 'fun']  %>
+  <%= f.input :activity, collection: Meetle::ACTIVITY  %>
   <%= f.button :submit %>
 <% end %>
