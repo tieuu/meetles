@@ -10,3 +10,6 @@
          -->
   <% end %>
   <h2>Meeting for <%= @meetle.activity %> </h2>
+  <%= if @meetle.count(stations) > 2 %>
+    <h2>show results here</h2>
+  <%= end %>
