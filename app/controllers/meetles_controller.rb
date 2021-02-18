@@ -33,10 +33,12 @@ class MeetlesController < ApplicationController
     @meetle = Meetle.find(params[:id])
     @user = current_user
     @activity = meetle_params[:activity]
+    if meetle_params[:activity] != ""
 
-    @meetle.update(params[:activity])
-    render :show
+      @meetle.update(activity: @activity)
+      render :show
 
+    end
     if meetle_params[:stations] != ""
       @station = Station.find(meetle_params[:stations])
 
