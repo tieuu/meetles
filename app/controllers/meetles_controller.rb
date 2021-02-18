@@ -7,7 +7,8 @@ class MeetlesController < ApplicationController
   def show
     @meetle = Meetle.find(params[:id])
     @user = current_user
-    @current_location = Location.where(user: current_user)
+    # @current_location = current_user.locations.where(meetle_id: @meetle.id)
+    # @current_station = Station.find(@current_location.id)
     @meetle_location
   end
 
@@ -34,7 +35,7 @@ class MeetlesController < ApplicationController
     @station = Station.find(station_params[:stations])
     @activity = station_params[:activity]
     @meetle.update(activity: @activity)
-    if current_user.locations.exists?
+    if current_user.locations.where(meetle_id: @meetle.id).exists?
       @location = Location.where(user: current_user)
       @location.update(station: @station)
     else
@@ -43,9 +44,7 @@ class MeetlesController < ApplicationController
     end
     render :show
   end
-
 end
-
 
 private
 
