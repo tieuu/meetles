@@ -8,10 +8,6 @@
 require 'json'
 require 'open-uri'
 
-url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=train_station&location=35.681382,139.76608399999998&radius=30000&key=AIzaSyCwIpzQNIclviTDcD_ivXtEfD4RYwcppj4"
-stations = open(url).read
-station_list = JSON.parse(stations)
-
 puts "Deleting everything"
 Location.destroy_all
 Meetle.destroy_all
@@ -43,20 +39,12 @@ User.create!(
   password: "meetles4"
 )
 
-# puts "seed stations name"
-# 100.times do
-#   Station.create!(
-#     name: station_list['results'].each do |station|
-#       station['name']
-#       )
-#     end
 puts "seed stations name"
-station_list['results'].each do |station|
-  s = Station.create!(
-    name: station['name']
-  )
-  puts s.name
-end
+url = JSON.parse(open('./app/assets/images/stations.json').read)
 
+stations = []
+url['stations'].each { |station| stations << station }
+
+stations.each { |station| Station.create(name: station['romaji'], name_kanji: station['kanji']) }
 
 puts "Seed Done, Be carefull ... !"
