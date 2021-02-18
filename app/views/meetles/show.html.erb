@@ -29,7 +29,8 @@
          -->
           <% end %>
           <h2>Meeting for <%= @meetle.activity %> </h2>
-          <div class="row mt-5">
+          <div class="row mt-5" data-controller="results">
+            <button class="btn btn-outline-secondary">Show Results</button>
             <% 3.times do %>
               <div class="col-auto">
                 <%= render "partials/resultcard" %>
