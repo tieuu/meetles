@@ -12,6 +12,7 @@ class MeetlesController < ApplicationController
     # @current_location = current_user.locations.where(meetle_id: @meetle.id)
     # @current_station = Station.find(@current_location.id)
     @meetle_location
+    @result_stations = create_result_stations
   end
 
   def create
@@ -40,7 +41,6 @@ class MeetlesController < ApplicationController
     @meetle.update(activity: @activity) if meetle_params[:activity].present?
     if meetle_params[:stations].present?
       @station = Station.find(meetle_params[:stations])
-
       if current_user.locations.where(meetle_id: @meetle.id).exists?
         @location = Location.where(user: current_user)
         @location.update(station: @station)
@@ -49,8 +49,7 @@ class MeetlesController < ApplicationController
         @meetle.locations << @location
 
       end
-      @result_stations = create_result_stations
-      render :show
+      redirect_to meetle_path(@meetle)
     end
   end
 
@@ -73,9 +72,11 @@ class MeetlesController < ApplicationController
     elsif @stations.size == 3
       fake_results = ['sugamo', 'nakai', 'akebonobashi']
     end
-    fake_results = fake_results.map { |station| Station.where(name: station).first }
-    @result_stations = fake_results.map do |station|
-      ResultStation.create(meetle: @meetle, vote: 0, station: station)
+    unless fake_results.nil?
+      fake_results = fake_results.map { |station| Station.where(name: station).first }
+      @result_stations = fake_results.map do |station|
+        ResultStation.create(meetle: @meetle, vote: 0, station: station)
+      end
     end
   end
 end
