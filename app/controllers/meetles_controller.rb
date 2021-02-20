@@ -56,7 +56,7 @@ def update
       @meetle.locations << @location
 
     end
-    redirect_to :show
+    redirect_to meetle_path(@meetle)
   end
 end
 
