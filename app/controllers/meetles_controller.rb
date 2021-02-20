@@ -56,7 +56,7 @@ class MeetlesController < ApplicationController
         @meetle.locations << @location
 
       end
-      redirect_to meetle_path(@meetle)
+
     end
 
     redirect_to meetle_path(@meetle)
