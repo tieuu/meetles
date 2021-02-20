@@ -7,9 +7,14 @@
       </div>
       <div class="title">
         <p>meet in the middle for...</p>
-        <div class="title row">
-          <% Meetle::ACTIVITY.each do |activity| %>
-            <p class="col" > <%= link_to activity, meetles_path%> </p>
+        <div class="btn">
+          <!--     <% Meetle::ACTIVITY.each do |activity| %>
+            <p class="col" > <%= link_to activity, meetle_path(@meetle), method: :patch%> </p>
+          <% end %> -->
+          <%= simple_form_for @meetle, method: :patch do |f| %>
+            <% Meetle::ACTIVITY.each do |activity| %>
+              <button type="submit" class='col' value= "<%= activity %>" name='activity'><%=  activity %> </button>
+            <% end %>
           <% end %>
         </div>
       </div>
