@@ -16,11 +16,11 @@ class MeetlesController < ApplicationController
 
   def create
     @user = current_user
-    @station = Station.find(station_params[:stations])
+    @station = Station.find(meetle_params[:stations])
     @meetle = Meetle.new(active: true)
     @location = Location.new(station: @station, user: @user, meetle: @meetle)
     @meetle.user = @user
-    @activity = station_params[:activity]
+    @activity = meetle_params[:activity]
     @meetle.activity = @activity
 
     if @meetle.save && @location.save
@@ -34,15 +34,18 @@ class MeetlesController < ApplicationController
   def update
     @meetle = Meetle.find(params[:id])
     @user = current_user
-    @station = Station.find(station_params[:stations])
-    @activity = station_params[:activity]
-    @meetle.update(activity: @activity)
-    if current_user.locations.where(meetle_id: @meetle.id).exists?
-      @location = Location.where(user: current_user)
-      @location.update(station: @station)
-    else
-      @location = Location.new(station: @station, user: @user, meetle: @meetle)
-      @meetle.locations << @location
+    @activity = meetle_params[:activity]
+    @meetle.update(activity: @activity) if meetle_params[:activity] != ""
+    if meetle_params[:stations] != ""
+      @station = Station.find(meetle_params[:stations])
+
+      if current_user.locations.where(meetle_id: @meetle.id).exists?
+        @location = Location.where(user: current_user)
+        @location.update(station: @station)
+      else
+        @location = Location.new(station: @station, user: @user, meetle: @meetle)
+        @meetle.locations << @location
+      end
     end
     @result_stations = create_result_stations
     render :show
@@ -50,7 +53,7 @@ class MeetlesController < ApplicationController
 
   private
 
-  def station_params
+  def meetle_params
     params.require(:meetle).permit(:stations, :activity)
   end
 
