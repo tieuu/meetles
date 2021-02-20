@@ -8,7 +8,7 @@ class ResultStation < ApplicationRecord
   has_many :fares
 
   def self.location(station)
-    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=formatted_address,name,geometry&key=AIzaSyCwIpzQNIclviTDcD_ivXtEfD4RYwcppj4"
+    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=formatted_address,name,geometry&key=AIzaSyBu2D8KUhm_GSOBr5B9EA7ftRRfh6gGvUQ"
 
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
@@ -18,7 +18,7 @@ class ResultStation < ApplicationRecord
   end
 
   def self.restaurant(station)
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{location(station)}&radius=1500&type=restaurant&key=AIzaSyCwIpzQNIclviTDcD_ivXtEfD4RYwcppj4"
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{location(station)}&radius=1500&type=restaurant&key=AIzaSyBu2D8KUhm_GSOBr5B9EA7ftRRfh6gGvUQ"
 
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
