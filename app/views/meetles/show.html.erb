@@ -1,5 +1,5 @@
-<div class="justify-content-center mt-5">
-  <div class="d-flex h-100 text-center">
+<div class="justify-content-center mt-5 mb-5">
+  <div class="d-flex text-center">
     <div class="mx-auto">
       <div class="row">
         <h1 class="title col">meetle.</h1>
@@ -7,29 +7,39 @@
       </div>
       <div class="title">
         <p>meet in the middle for...</p>
-        <div class="btn">
-          <!--     <% Meetle::ACTIVITY.each do |activity| %>
-            <p class="col" > <%= link_to activity, meetle_path(@meetle), method: :patch%> </p>
-          <% end %> -->
-          <%= simple_form_for @meetle, method: :patch do |f| %>
-            <% Meetle::ACTIVITY.each do |activity| %>
-              <button type="submit" class='col' value= "<%= activity %>" name='activity'><%=  activity %> </button>
+        <div class="btn col">
+          <% Meetle::ACTIVITY.each do |act| %>
+            <%= simple_form_for @meetle do |f| %>
+              <%= f.input :activity, input_html: {value: act}, as: 'hidden'  %>
+              <%= f.submit act %>
             <% end %>
           <% end %>
         </div>
         <!--  <input type="text" placeholder="Search...">
     <div class="search"></div> -->
       </div>
+      <div class="row" >
+        <div class="col">
+          <h1>Pages#home</h1>
+          <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
+            <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
+            <!-- <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %> -->
+            <%= f.button :submit %>
+          <% end %>
+          <h2> <%  @meetle.locations.each do |location| %></h2>
+            <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
+            <!-- <h2> Your station is  %=  Location.where(user: current_user).station.name %></h2>
+         -->
+          <% end %>
+          <h2>Meeting for <%= @meetle.activity %> </h2>
+          <div class="row mt-5">
+            <% 3.times do %>
+              <div class="col-auto">
+                <%= render "partials/resultcard" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <h1>Pages#home</h1>
-  <%= simple_form_for @meetle, method: :patch do |f| %>
-    <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
-    <!-- <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %> -->
-    <%= f.button :submit %>
-  <% end %>
-  <%  @meetle.locations.each do |location| %>
-    <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
-    <!-- <h2> Your station is  %=  Location.where(user: current_user).station.name %></h2> -->
-  <% end %>
-  <h2>Meeting for <%= @meetle.activity %> </h2>

@@ -1,18 +1,25 @@
-<div class="justify-content-center mt-5">
-  <div class="d-flex h-100 text-center">
-    <div class="mx-auto">
-      <div class="row">
-        <h1 class="title col">meetle.</h1>
-        <%= image_tag("question.jpg", :size => "116x175", class:"col-md-auto p-0") %>
-      </div>
-      <div class="title">
-        <p>meet in the middle for...</p>
-        <div class="title row">
-          <% Meetle::ACTIVITY.each do |activity| %>
-            <p class="col" > <%= link_to activity, meetles_path %> </p>
-          <% end %>
-          <!--  <input type="text" placeholder="Search...">
+<div class="container">
+  <div class="justify-content-center mt-5">
+    <div class="d-flex h-100 text-center">
+      <div class="mx-auto">
+        <div class="row">
+          <h1 class="title col">meetle.</h1>
+          <%= image_tag("question.jpg", :size => "116x175", class:"col-md-auto p-0") %>
+        </div>
+        <div class="title">
+          <p>meet in the middle for...</p>
+          <div class="row justify-content-center">
+            <% Meetle::ACTIVITY.each do |act| %>
+              <%= simple_form_for @meetle, method: :post do |f| %>
+                <div class="col-sm btn m-0 h">
+                  <%= f.input :activity, input_html: {value: act}, as: 'hidden'  %>
+                  <%= f.submit act %>
+                </div>
+              <% end %>
+            <% end %>
+            <!--  <input type="text" placeholder="Search...">
           <div class="search"></div> -->
+          </div>
         </div>
       </div>
     </div>
