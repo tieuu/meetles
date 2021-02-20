@@ -35,9 +35,6 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-  </div>
-=======
     <% if @meetle.stations.count > 1 %>
       <div class="row mt-5">
         <% 3.times do %>
@@ -49,7 +46,11 @@
     <% end %>
   </div>
 </div>
-</div>
-</div>
-</div>
->>>>>>> 1b7f3bf54e98e476874ab6b2ef2c82be8e129e38
+
+<br>
+<br>
+<% if @result_stations %>
+  <% @result_stations.each do |st| %>
+    <%= st.station.name %>
+  <% end %>
+<% end %>
