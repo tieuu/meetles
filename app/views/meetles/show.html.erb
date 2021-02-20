@@ -1,5 +1,5 @@
-<div class="justify-content-center mt-5">
-  <div class="d-flex h-100 text-center">
+<div class="justify-content-center mt-5 mb-5">
+  <div class="d-flex text-center">
     <div class="mx-auto">
       <div class="row">
         <h1 class="title col">meetle.</h1>
@@ -12,11 +12,37 @@
             <p class="col" > <%= link_to activity, meetles_path%> </p>
           <% end %>
         </div>
-        <!--  <input type="text" placeholder="Search...">
-    <div class="search"></div> -->
+      </div>
+
+      <div class="row" >
+        <div class="col">
+          <h1>Pages#home</h1>
+          <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
+            <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
+            <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %>
+            <%= f.button :submit %>
+          <% end %>
+
+          <h2> <%  @meetle.locations.each do |location| %></h2>
+            <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
+          <% end %>
+
+          <h2>Meeting for <%= @meetle.activity %> </h2>
+
+          <% if @meetle.stations.count > 1 %>
+            <div class="row mt-5">
+              <% 3.times do %>
+                <div class="col-auto">
+                  <%= render "partials/resultcard" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
+<<<<<<< HEAD
   <h1>Pages#home</h1>
   <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
     <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
@@ -37,3 +63,6 @@
       <%= st.station.name %>
     <% end %>
   <% end %>
+=======
+</div>
+>>>>>>> cbecdc430fd8fdbdf4d544f051394487a04a95ba
