@@ -18,7 +18,6 @@
           <% end %>
         </div>
       </div>
-
       <div class="row" >
         <div class="col">
           <h1>Pages#home</h1>
@@ -27,24 +26,28 @@
             <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %>
             <%= f.button :submit %>
           <% end %>
-
           <h2> <%  @meetle.locations.each do |location| %></h2>
             <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
           <% end %>
-
           <h2>Meeting for <%= @meetle.activity %> </h2>
-
-          <% if @meetle.stations.count > 1 %>
-            <div class="row mt-5">
-              <% 3.times do %>
-                <div class="col-auto">
-                  <%= render "partials/resultcard" %>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
+          <button type="button" class="btn btn-orange" data-toggle="modal" data-target="#exampleModal">
+            Share your meetle
+          </button>
+          <%= render "partials/sharelink" %>
         </div>
       </div>
     </div>
+    <% if @meetle.stations.count > 1 %>
+      <div class="row mt-5">
+        <% 3.times do %>
+          <div class="col-auto">
+            <%= render "partials/resultcard" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+</div>
+</div>
+</div>
 </div>
