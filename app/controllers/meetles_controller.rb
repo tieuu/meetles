@@ -1,5 +1,7 @@
 class MeetlesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_meetle, only: :create_result_station
+
   def index
     @meetle = Meetle.new
   end
@@ -42,12 +44,108 @@ class MeetlesController < ApplicationController
       @location = Location.new(station: @station, user: @user, meetle: @meetle)
       @meetle.locations << @location
     end
+    @result_stations = create_result_stations
     render :show
+  end
+
+  private
+
+  def station_params
+    params.require(:meetle).permit(:stations, :activity)
+  end
+
+  def set_meetle
+    @meetle = Meetle.find(params[:id])
+  end
+
+  def create_result_stations
+    @stations = @meetle.locations.map do |loc|
+      loc.station.name
+    end
+    if @stations.size == 2
+      fake_results = ['sugamo', 'sengoku', 'hakusan']
+    elsif @stations.size == 3
+      fake_results = ['sugamo', 'nakai', 'akebonobashi']
+    end
+    fake_results = fake_results.map { |station| Station.where(name: station).first }
+    @result_stations = fake_results.map do |station|
+      ResultStation.create(meetle: @meetle, vote: 0, station: station)
+    end
   end
 end
 
-private
+FAKE_RESULT_2 = {
+  'yurakucho': {
+    'sugamo': {
+      fee: 200,
+      duration: 22
+    },
+    'sengoku': {
+      fee: 220,
+      duration: 15
+    },
+    'hakusan': {
+      fee: 220,
+      duration: 13
+    }
+  },
+  'itabashihoncho': {
+    'sugamo': {
+      fee: 220,
+      duration: 8
+    },
+    'sengoku': {
+      fee: 220,
+      duration: 10
+    },
+    'hakusan': {
+      fee: 220,
+      duration: 11
+    }
+  }
+}
 
-def station_params
-  params.require(:meetle).permit(:stations, :activity)
-end
+FAKE_RESULT_3 = {
+  'yurakucho': {
+    'sugamo': {
+      fee: 200,
+      duration: 22
+    },
+    'nakai': {
+      fee: 350,
+      duration: 39
+    },
+    'akebonobashi': {
+      fee: 280,
+      duration: 15
+    }
+  },
+  'itabashihoncho': {
+    'sugamo': {
+      fee: 220,
+      duration: 8
+    },
+    'nakai': {
+      fee: 330,
+      duration: 50
+    },
+    'akebonobashi': {
+      fee: 280,
+      duration: 26
+    }
+  },
+  'meguro': {
+    'sugamo': {
+      fee: 200,
+      duration: 26
+    },
+    'nakai': {
+      fee: 320,
+      duration: 26
+    },
+    'akebonobashi': {
+      fee: 280,
+      duration: 35
+    }
+  }
+}
