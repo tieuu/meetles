@@ -43,7 +43,7 @@ puts "seed stations name"
 url = JSON.parse(open('./app/assets/images/stations.json').read)
 
 stations = []
-url['stations'].each { |station| stations << station }
+url['stations'].each { |station| stations << station unless stations.include?(station)}
 
 stations.each { |station| Station.create(name: station['romaji'], name_kanji: station['kanji']) }
 

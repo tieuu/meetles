@@ -13,6 +13,7 @@ def show
   # @current_location = current_user.locations.where(meetle_id: @meetle.id)
   # @current_station = Station.find(@current_location.id)
   @meetle_location
+  @result_stations = create_result_stations
 end
 
 def create
@@ -55,7 +56,6 @@ def update
       @meetle.locations << @location
 
     end
-    @result_stations = create_result_stations
     render :show
   end
 end
@@ -79,9 +79,11 @@ end
     elsif @stations.size == 3
       fake_results = ['sugamo', 'nakai', 'akebonobashi']
     end
-    fake_results = fake_results.map { |station| Station.where(name: station).first }
-    @result_stations = fake_results.map do |station|
-      ResultStation.create(meetle: @meetle, vote: 0, station: station)
+    unless fake_results.nil?
+      fake_results = fake_results.map { |station| Station.where(name: station).first }
+      @result_stations = fake_results.map do |station|
+        ResultStation.create(meetle: @meetle, vote: 0, station: station)
+      end
     end
   end
 end

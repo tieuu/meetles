@@ -3,7 +3,7 @@
     <div class="card-result">
       <div class="card-result-head">
         <div>
-          <h2>Station Name</h2>
+          <h2><%= result_station.station.name.capitalize %></h2>
           <p>Duration: xx mins - price ¥5,000</p>
           <i class="topright fas fa-heart"></i>
         </div>
@@ -15,21 +15,21 @@
           <li class="list-group-item card-result-infos">
             <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
             <div>
-              <p>Restaurant name</p>
+              <p><%= ResultStation.restaurant(result_station.station.name)[0] %></p>
               <p>¥¥¥</p>
             </div>
           </li>
           <li class="list-group-item card-result-infos">
             <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
             <div>
-              <p>Restaurant name</p>
+              <p><%= ResultStation.restaurant(result_station.station.name)[1] %></p>
               <p>¥¥¥</p>
             </div>
           </li>
           <li class="list-group-item card-result-infos">
             <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
             <div>
-              <p>Restaurant name</p>
+              <p><%= ResultStation.restaurant(result_station.station.name)[2] %></p>
               <p>¥¥¥</p>
             </div>
           </li>
