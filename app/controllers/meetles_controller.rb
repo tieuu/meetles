@@ -58,6 +58,8 @@ class MeetlesController < ApplicationController
       end
       redirect_to meetle_path(@meetle)
     end
+
+    redirect_to meetle_path(@meetle)
   end
 
   private
