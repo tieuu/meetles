@@ -7,58 +7,58 @@ class MeetlesController < ApplicationController
     @meetle = Meetle.new
   end
 
-def show
-  @meetle = Meetle.find(params[:id])
-  @user = current_user
-  # @current_location = current_user.locations.where(meetle_id: @meetle.id)
-  # @current_station = Station.find(@current_location.id)
-  @meetle_location
-  @result_stations = create_result_stations
-end
+  def show
+    @meetle = Meetle.find(params[:id])
+    @user = current_user
+    # @current_location = current_user.locations.where(meetle_id: @meetle.id)
+    # @current_station = Station.find(@current_location.id)
+    @meetle_location
+    @result_stations = create_result_stations
+  end
 
-def create
-  @user = current_user
-  # @station = Station.find(meetle_params[:stations])
-  @meetle = Meetle.new(active: true)
-  # @location = Location.new(station: @station, user: @user, meetle: @meetle)
-  @meetle.user = @user
-  @activity = meetle_params[:activity]
-  @meetle.activity = @activity
+  def create
+    @user = current_user
+    # @station = Station.find(meetle_params[:stations])
+    @meetle = Meetle.new(active: true)
+    # @location = Location.new(station: @station, user: @user, meetle: @meetle)
+    @meetle.user = @user
+    @activity = meetle_params[:activity]
+    @meetle.activity = @activity
 
-  if @meetle.save
+    if @meetle.save
 
-    redirect_to meetle_path(@meetle)
+      redirect_to meetle_path(@meetle)
+      @activity = meetle_params[:activity]
+      if meetle_params[:activity].present?
+
+        @meetle.update(activity: @activity)
+      end
+    else
+      render :index
+    end
+  end
+
+  def update
+    @meetle = Meetle.find(params[:id])
+    @user = current_user
     @activity = meetle_params[:activity]
     if meetle_params[:activity].present?
-
       @meetle.update(activity: @activity)
     end
-  else
-    render :index
-  end
-end
+    if meetle_params[:stations].present?
+      @station = Station.find(meetle_params[:stations])
 
-def update
-  @meetle = Meetle.find(params[:id])
-  @user = current_user
-  @activity = meetle_params[:activity]
-  if meetle_params[:activity].present?
-    @meetle.update(activity: @activity)
-  end
-  if meetle_params[:stations].present?
-    @station = Station.find(meetle_params[:stations])
+      if current_user.locations.where(meetle_id: @meetle.id).exists?
+        @location = Location.where(user: current_user)
+        @location.update(station: @station)
+      else
+        @location = Location.new(station: @station, user: @user, meetle: @meetle)
+        @meetle.locations << @location
 
-    if current_user.locations.where(meetle_id: @meetle.id).exists?
-      @location = Location.where(user: current_user)
-      @location.update(station: @station)
-    else
-      @location = Location.new(station: @station, user: @user, meetle: @meetle)
-      @meetle.locations << @location
-
+      end
+      redirect_to meetle_path(@meetle)
     end
-    redirect_to :show
   end
-end
 
   private
 
