@@ -7,27 +7,28 @@
       </div>
       <div class="title">
         <p>meet in the middle for...</p>
-        <div class="btn col">
+        <div class="row justify-content-center">
           <% Meetle::ACTIVITY.each do |act| %>
-            <%= simple_form_for @meetle do |f| %>
-              <%= f.input :activity, input_html: {value: act}, as: 'hidden'  %>
-              <%= f.submit act %>
+            <div class="col-sm btn m-0 h">
+              <%= simple_form_for @meetle do |f| %>
+                <%= f.input :activity, input_html: {value: act}, as: 'hidden'  %>
+                <button class="btn btn-orange" type="submit"><%= act %> </button>
+              </div>
             <% end %>
           <% end %>
         </div>
       </div>
-      <div class="row" >
+      <div class="row mt-5" >
         <div class="col">
-          <h1>Pages#home</h1>
           <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
             <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
             <!-- <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %> -->
-            <%= f.button :submit %>
+            <%= f.button :submit, class: 'btn btn-orange' %>
           <% end %>
           <h2> <%  @meetle.locations.each do |location| %></h2>
             <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
           <% end %>
-          <h2>Meeting for <%= @meetle.activity %> </h2>
+          <h2 class="mt-5 mb-5">You are currently meeting for <%= @meetle.activity %> </h2>
           <button type="button" class="btn btn-orange" data-toggle="modal" data-target="#exampleModal">
             Share your meetle
           </button>
@@ -38,17 +39,16 @@
   </div>
   <div class="row justify-content-center">
     <% if @meetle.stations.count > 1 %>
-        <div class="row mt-5">
-          <% @result_stations.each do |result_station| %>
-            <div class="col-auto">
-              <%= render "partials/resultcard", result_station: result_station %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+      <div class="row mt-5">
+        <% @result_stations.each do |result_station| %>
+          <div class="col-auto">
+            <%= render "partials/resultcard", result_station: result_station %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
-
 <br>
 <br>
 <% if @result_stations %>

@@ -10,10 +10,10 @@
           <p>meet in the middle for...</p>
           <div class="row justify-content-center">
             <% Meetle::ACTIVITY.each do |act| %>
-              <%= simple_form_for @meetle, method: :post do |f| %>
-                <div class="col-sm btn m-0 h">
+              <div class="col-sm btn m-0 h">
+                <%= simple_form_for @meetle, method: :post do |f| %>
                   <%= f.input :activity, input_html: {value: act}, as: 'hidden'  %>
-                  <%= f.submit act %>
+                  <button class="btn btn-orange" type="submit"><%= act %> </button>
                 </div>
               <% end %>
             <% end %>
