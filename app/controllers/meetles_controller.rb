@@ -9,23 +9,17 @@ class MeetlesController < ApplicationController
   def show
     @meetle = Meetle.find(params[:id])
     @user = current_user
-    # @current_location = current_user.locations.where(meetle_id: @meetle.id)
-    # @current_station = Station.find(@current_location.id)
-    @meetle_location
     @result_stations = create_result_stations
+    @user_station = @user.locations.where(meetle: @meetle).first.station
   end
 
   def create
     @user = current_user
-    # @station = Station.find(meetle_params[:stations])
     @meetle = Meetle.new(active: true)
-    # @location = Location.new(station: @station, user: @user, meetle: @meetle)
     @meetle.user = @user
     @activity = meetle_params[:activity]
     @meetle.activity = @activity
-
     if @meetle.save
-
       redirect_to meetle_path(@meetle)
       @activity = meetle_params[:activity]
       @meetle.update(activity: @activity) if meetle_params[:activity].present?
@@ -47,7 +41,6 @@ class MeetlesController < ApplicationController
       else
         @location = Location.new(station: @station, user: @user, meetle: @meetle)
         @meetle.locations << @location
-
       end
       redirect_to meetle_path(@meetle)
     end
@@ -64,95 +57,26 @@ class MeetlesController < ApplicationController
   end
 
   def create_result_stations
-    @stations = @meetle.locations.map do |loc|
-      loc.station.name
-    end
+    @stations = @meetle.locations.map { |loc| loc.station }
     if @stations.size == 2
-      fake_results = ['sugamo', 'sengoku', 'hakusan']
+      fake_results = ResultStation::FAKE_RESULT_2
     elsif @stations.size == 3
-      fake_results = ['sugamo', 'nakai', 'akebonobashi']
+      fake_results = ResultStation::FAKE_RESULT_3
     end
     unless fake_results.nil?
-      fake_results = fake_results.map { |station| Station.where(name: station).first }
-      @result_stations = fake_results.map do |station|
+      fake_stations = fake_results.first.last.keys.map { |station| Station.where(name: station.to_s).first }
+      @result_stations = fake_stations.map do |station|
         ResultStation.create(meetle: @meetle, vote: 0, station: station)
       end
+      @stations.each do |loc_station|
+        @result_stations.each do |res_station|
+          Fare.create(station: loc_station,
+                      result_station: res_station,
+                      fee: fake_results[loc_station.name.to_sym][res_station.station.name.to_sym][:fee],
+                      duration: Time.at(fake_results[loc_station.name.to_sym][res_station.station.name.to_sym][:duration] * 60))
+        end
+      end
     end
+    return @result_stations
   end
 end
-
-FAKE_RESULT_2 = {
-  'yurakucho': {
-    'sugamo': {
-      fee: 200,
-      duration: 22
-    },
-    'sengoku': {
-      fee: 220,
-      duration: 15
-    },
-    'hakusan': {
-      fee: 220,
-      duration: 13
-    }
-  },
-  'itabashihoncho': {
-    'sugamo': {
-      fee: 220,
-      duration: 8
-    },
-    'sengoku': {
-      fee: 220,
-      duration: 10
-    },
-    'hakusan': {
-      fee: 220,
-      duration: 11
-    }
-  }
-}
-
-FAKE_RESULT_3 = {
-  'yurakucho': {
-    'sugamo': {
-      fee: 200,
-      duration: 22
-    },
-    'nakai': {
-      fee: 350,
-      duration: 39
-    },
-    'akebonobashi': {
-      fee: 280,
-      duration: 15
-    }
-  },
-  'itabashihoncho': {
-    'sugamo': {
-      fee: 220,
-      duration: 8
-    },
-    'nakai': {
-      fee: 330,
-      duration: 50
-    },
-    'akebonobashi': {
-      fee: 280,
-      duration: 26
-    }
-  },
-  'meguro': {
-    'sugamo': {
-      fee: 200,
-      duration: 26
-    },
-    'nakai': {
-      fee: 320,
-      duration: 26
-    },
-    'akebonobashi': {
-      fee: 280,
-      duration: 35
-    }
-  }
-}

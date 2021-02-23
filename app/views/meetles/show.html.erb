@@ -36,23 +36,17 @@
       </div>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <% if @meetle.stations.count > 1 %>
+  <div class="container">
+    <div class="row justify-content-center">
+      <% if @meetle.stations.count > 1 %>
         <div class="row mt-5">
           <% @result_stations.each do |result_station| %>
-            <div class="col-auto">
-              <%= render "partials/resultcard", result_station: result_station %>
+            <div class="col-12 col-lg-4 h-100">
+              <%= render "partials/resultcard", result_station: result_station, user_station: @user_station %>
             </div>
           <% end %>
         </div>
       <% end %>
+    </div>
   </div>
 </div>
-
-<br>
-<br>
-<% if @result_stations %>
-  <% @result_stations.each do |st| %>
-    <%= st.station.name %>
-  <% end %>
-<% end %>

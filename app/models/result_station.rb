@@ -27,4 +27,35 @@ class ResultStation < ApplicationRecord
     html_doc['results'].first(3).each { |result| restaurants << result['name'] }
     return restaurants
   end
+
+  FAKE_RESULT_2 = {
+    'yurakucho': {
+      'sugamo': { fee: 200, duration: 22 },
+      'sengoku': { fee: 220, duration: 15 },
+      'hakusan': { fee: 220, duration: 13 }
+    },
+    'itabashihoncho': {
+      'sugamo': { fee: 220, duration: 8 },
+      'sengoku': { fee: 220, duration: 10 },
+      'hakusan': { fee: 220, duration: 11 }
+    }
+  }
+
+  FAKE_RESULT_3 = {
+    'yurakucho': {
+      'sugamo': { fee: 200, duration: 22 },
+      'nakai': { fee: 350, duration: 39 },
+      'akebonobashi': { fee: 280, duration: 15 }
+    },
+    'itabashihoncho': {
+      'sugamo': { fee: 220, duration: 8 },
+      'nakai': { fee: 330, duration: 50 },
+      'akebonobashi': { fee: 280, duration: 26 }
+    },
+    'meguro': {
+      'sugamo': { fee: 200, duration: 26 },
+      'nakai': { fee: 320, duration: 26 },
+      'akebonobashi': { fee: 280, duration: 35 }
+    }
+  }
 end

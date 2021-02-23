@@ -36,7 +36,7 @@
 .card-result .card-result-infos {
   padding: 8px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
   align-items: center;
   position: center;
   background-color: white;
@@ -47,7 +47,6 @@
   right: 16px;
   top: -20px;
   width: 40px;
-
 }
 
 .card-spacing {
@@ -65,4 +64,3 @@
   right: 30px;
   font-size: 18px;
 }
-
