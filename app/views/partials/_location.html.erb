@@ -1,0 +1,5 @@
+<div id="location" data-meetle-id="<%= @meetle.id %>">
+  <% unless @meetle.locations.where(user: current_user)[0].nil? %>
+    <h2>  <%= @user.email %>'s location: <%= @meetle.locations.where(user: current_user)[0].station.name %></h2>
+  <% end %>
+</div>
