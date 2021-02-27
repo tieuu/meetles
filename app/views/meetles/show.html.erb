@@ -29,7 +29,13 @@
             <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
           <% end %>
           <h2 class="mt-5 mb-5">You are currently meeting for <%= @meetle.activity %> </h2>
-          <button type="button" class="btn btn-orange" data-toggle="modal" data-target="#exampleModal">
+          <% if @meetle.result_stations.exists? %>
+            <div id="map"
+     style="width: 100%; height: 400px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['mapbox_api_key'] %>"></div>
+          <% end %>
+          <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal">
             Share your meetle
           </button>
           <%= render "partials/sharelink" %>
@@ -37,19 +43,19 @@
       </div>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <% if @meetle.stations.count > 1 %>
-      <div class="row mt-5 justify-content-center">
-        <% @result_stations.each do |result_station| %>
-          <div class="col-auto">
-            <%= render "partials/resultcard", result_station: result_station %>
-            <div class="row justify-content-center mt-3">
-              <a href="https://www.google.com/maps/place/Sugamo+Station/@35.7334192,139.7349074,16z/data=!4m8!1m2!2m1!1ssugamo+station!3m4!1s0x60188d990bffa915:0xa4d68de94432de9a!8m2!3d35.7334192!4d139.7392848" class="btn btn-orange"> Go to location
-              </a>
-            </div>
+</div>
+<div class="row justify-content-center">
+  <% if @meetle.stations.count > 1 %>
+    <div class="row justify-content-center">
+      <% @result_stations.each do |result_station| %>
+        <div class="col-auto">
+          <%= render "partials/resultcard", result_station: result_station %>
+          <div class="row justify-content-center mt-3">
+            <a href="https://www.google.com/maps/place/Sugamo+Station/@35.7334192,139.7349074,16z/data=!4m8!1m2!2m1!1ssugamo+station!3m4!1s0x60188d990bffa915:0xa4d68de94432de9a!8m2!3d35.7334192!4d139.7392848" class="btn btn-orange"> Go to location
+            </a>
           </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

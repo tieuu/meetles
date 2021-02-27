@@ -33,4 +33,10 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
 });
 
-import "controllers";
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { initMapbox } from '../packs/map.js';
+
+document.addEventListener('turbolinks:load', () => {
+  initMapbox();
+})
