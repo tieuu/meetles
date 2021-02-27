@@ -1,7 +1,6 @@
 .card-result {
   overflow: hidden;
   background: white;
-  // box-shadow: 0 0 15px rgba(0,0,0,0.2);
   border-radius: 5px;
 }
 
@@ -57,6 +56,7 @@
 
 .card-border {
   border-style: solid;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
 .card-result-head .topright {
@@ -65,4 +65,37 @@
   right: 30px;
   font-size: 18px;
 }
+
+.card-stations {
+  border-style: solid;
+  border-radius: 5px;
+  padding: 16px;
+}
+
+.card-stations h2 {
+  margin-top: 5px;
+  font-size: 32px;
+  text-align: center;
+}
+
+.card-stations .card-stations-head {
+  padding: 16px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  position: center;
+  background-color: $meetle-gray;
+  border-style: solid;
+}
+
+.card-stations .card-stations-infos {
+  padding: 8px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: center;
+  background-color: white;
+}
+
+
 
