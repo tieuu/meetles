@@ -24,25 +24,19 @@
             <%= f.input :stations, collection: Station.all.order(:name), label: "Add your station", input_html: { class: 'select2' }, wrapper_html: { class: "center_form" } %>
             <%= f.button :submit, class: 'btn btn-orange', data_action: 'click->location#refresh' %>
           <% end %>
-          <h2> <%  @meetle.locations.each do |location| %></h2>
-            <h2>  <%= location.user.name %>'s location: <%= location.station.name %></h2>
-          <% end %>
           <%= render "partials/location" unless @meetle.stations.empty? %>
         </div>
-        <div class="col">
-          <h2 class="mt-5 mb-5">You are currently meeting for <%= @meetle.activity %> </h2>
-          <% if @meetle.result_stations.exists? %>
-            <div id="map"
+        <% if @meetle.result_stations.exists? %>
+          <div id="map"
      style="width: 100%; height: 400px;"
      data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API'] %>"></div>
-          <% end %>
-          <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal">
-            Share your meetle
-          </button>
-        </div>
-        <%= render "partials/sharelink" %>
+     data-mapbox-api-key="<%= ENV['mapbox_api_key'] %>"></div>
+        <% end %>
       </div>
+      <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal">
+        Share your meetle
+      </button>
+      <%= render "partials/sharelink" %>
     </div>
   </div>
 </div>
@@ -56,8 +50,9 @@
             <a href="https://www.google.com/maps/place/Sugamo+Station/@35.7334192,139.7349074,16z/data=!4m8!1m2!2m1!1ssugamo+station!3m4!1s0x60188d990bffa915:0xa4d68de94432de9a!8m2!3d35.7334192!4d139.7392848" class="btn btn-orange"> Go to location
             </a>
           </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 </div>
