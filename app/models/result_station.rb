@@ -7,9 +7,8 @@ class ResultStation < ApplicationRecord
   belongs_to :meetle
   has_many :fares
 
-
   def self.location(station)
-    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=formatted_address,name,geometry&key=#{ENV['google_maps_api_key']}"
+    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=formatted_address,name,geometry&key=#{ENV['GOOGLE_API']}"
 
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
@@ -19,7 +18,7 @@ class ResultStation < ApplicationRecord
   end
 
   def self.restaurant(station)
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{location(station)}&radius=1500&type=restaurant&key=#{ENV['google_maps_api_key']}"
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{location(station)}&radius=1500&type=restaurant&key=#{ENV['GOOGLE_API']}"
 
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
