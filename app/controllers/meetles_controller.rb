@@ -62,7 +62,11 @@ class MeetlesController < ApplicationController
         @meetle.locations << @location
 
       end
-
+      @meetle.save
+      MeetleChannel.broadcast_to(
+        @meetle,
+        render_to_string(partial: "partials/location")
+      )
     end
 
     redirect_to meetle_path(@meetle)
