@@ -81,7 +81,8 @@ from_stations.each do |from_sta|
   end
 end
 
-p save_fees
+result = save_fees.sort_by { |_k, v| v.values.max - v.values.min }[0..2]
 
+p result
 # 4- compare fees and keep fairest ones and store station in Result_station Table with fares in Fare Table
 # 4- or compare durations and keep fairest ones //

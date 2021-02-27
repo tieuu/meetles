@@ -12,27 +12,17 @@
       </div>
       <div class="card-border">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item card-result-infos">
-            <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
-            <div>
-              <p><%= ResultStation.restaurant(result_station.station.name)[0] %></p>
-              <p>¥¥¥</p>
-            </div>
-          </li>
-          <li class="list-group-item card-result-infos">
-            <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
-            <div>
-              <p><%= ResultStation.restaurant(result_station.station.name)[1] %></p>
-              <p>¥¥¥</p>
-            </div>
-          </li>
-          <li class="list-group-item card-result-infos">
-            <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
-            <div>
-              <p><%= ResultStation.restaurant(result_station.station.name)[2] %></p>
-              <p>¥¥¥</p>
-            </div>
-          </li>
+
+          <% ResultStation.fetch_activity(result_station.station.name).each do |activity| %>
+            <li class="list-group-item card-result-infos">
+              <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
+              <div>
+                <p><%= activity %></p>
+                <p>¥¥¥</p>
+              </div>
+            </li>
+          <% end %>
+
         </ul>
       </div>
     </div>
