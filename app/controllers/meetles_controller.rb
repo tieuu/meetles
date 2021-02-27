@@ -59,7 +59,7 @@ class MeetlesController < ApplicationController
       @meetle.save
       MeetleChannel.broadcast_to(
         @meetle,
-        render_to_string(partial: "partials/location", locals: { location: @location })
+        render_to_string(partial: "partials/location")
       )
     end
 

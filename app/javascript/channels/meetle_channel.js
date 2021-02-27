@@ -7,7 +7,8 @@ const initMeetleCable = () => {
 
     consumer.subscriptions.create({ channel: "MeetleChannel", id: id }, {
       received(data) {
-        locationsContainer.insertAdjacentHTML('beforeend', data);
+        console.log(data);
+        locationsContainer.innerHTML = data;
       },
     });
   }
