@@ -1,5 +1,5 @@
 <div id="location" data-meetle-id="<%= @meetle.id %>">
   <% @meetle.locations.each do |location| %>
-    <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
+    <h2>  <%= location.user.name %>'s location: <%= location.station.name %></h2>
   <% end %>
 </div>
