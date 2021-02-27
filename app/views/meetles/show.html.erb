@@ -29,7 +29,13 @@
           <% end %>
           <%= render "partials/location" unless @meetle.stations.empty? %>
           <h2 class="mt-5 mb-5">You are currently meeting for <%= @meetle.activity %> </h2>
-          <button type="button" class="btn btn-orange" data-toggle="modal" data-target="#exampleModal">
+          <% if @meetle.result_stations.exists? %>
+            <div id="map"
+     style="width: 100%; height: 400px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['mapbox_api_key'] %>"></div>
+          <% end %>
+          <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal">
             Share your meetle
           </button>
           <%= render "partials/sharelink" %>

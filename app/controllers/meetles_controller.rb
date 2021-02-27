@@ -10,10 +10,16 @@ class MeetlesController < ApplicationController
   def show
     @meetle = Meetle.find(params[:id])
     @user = current_user
-    # @current_location = current_user.locations.where(meetle_id: @meetle.id)
-    # @current_station = Station.find(@current_location.id)
     @meetle_location
     @result_stations = create_result_stations
+
+    @markers = []
+    @meetle.result_stations.reject{ |result| result.station.latitude.nil?}.each do |result|
+      @markers << {
+        lat: result.station.latitude,
+        lng: result.station.longitude
+      }
+    end
   end
 
   def create
@@ -47,10 +53,10 @@ class MeetlesController < ApplicationController
     end
     if meetle_params[:stations].present?
       @station = Station.find(meetle_params[:stations])
-
       if current_user.locations.where(meetle_id: @meetle.id).exists?
-        @location = Location.where(user: current_user)
+        @location = Location.where(user: current_user, meetle: @meetle)
         @location.update(station: @station)
+
       else
         @location = Location.new(station: @station, user: @user, meetle: @meetle)
         @meetle.locations << @location
@@ -81,9 +87,9 @@ class MeetlesController < ApplicationController
       loc.station.name
     end
     if @stations.size == 2
-      fake_results = ['sugamo', 'sengoku', 'hakusan']
+      fake_results = ['sugamo', 'sengoku', 'shinjuku']
     elsif @stations.size == 3
-      fake_results = ['sugamo', 'nakai', 'akebonobashi']
+      fake_results = ['sugamo', 'nakai', 'ueno']
     end
     unless fake_results.nil?
       fake_results = fake_results.map { |station| Station.where(name: station).first }
@@ -104,7 +110,7 @@ FAKE_RESULT_2 = {
       fee: 220,
       duration: 15
     },
-    'hakusan': {
+    'shinjuku': {
       fee: 220,
       duration: 13
     }
@@ -118,7 +124,7 @@ FAKE_RESULT_2 = {
       fee: 220,
       duration: 10
     },
-    'hakusan': {
+    'shinjuku': {
       fee: 220,
       duration: 11
     }
@@ -135,7 +141,7 @@ FAKE_RESULT_3 = {
       fee: 350,
       duration: 39
     },
-    'akebonobashi': {
+    'ueno': {
       fee: 280,
       duration: 15
     }
@@ -163,7 +169,7 @@ FAKE_RESULT_3 = {
       fee: 320,
       duration: 26
     },
-    'akebonobashi': {
+    'ueno': {
       fee: 280,
       duration: 35
     }

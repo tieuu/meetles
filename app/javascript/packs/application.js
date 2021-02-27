@@ -36,5 +36,13 @@ document.addEventListener('turbolinks:load', () => {
   initMeetleCable();
 });
 
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { initMapbox } from '../packs/map.js';
+
+document.addEventListener('turbolinks:load', () => {
+  initMapbox();
+})
+
 import "controllers";
 
