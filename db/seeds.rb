@@ -9,10 +9,11 @@ require 'json'
 require 'open-uri'
 
 puts "Deleting everything"
+ResultStation.destroy_all
 Location.destroy_all
+Station.destroy_all
 Meetle.destroy_all
 User.destroy_all
-Station.destroy_all
 
 puts "seed users"
 User.create!(

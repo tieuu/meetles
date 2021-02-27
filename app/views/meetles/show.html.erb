@@ -21,14 +21,33 @@
       <div class="row mt-5">
         <div class="col">
           <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
+<<<<<<< HEAD
             <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
             <!-- <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %> -->
             <%= f.button :submit, class: 'btn btn-orange m-2', data_action: 'click->location#refresh' %>
+=======
+            <%= f.input :stations, collection: Station.all.order(:name), label: "Add your station", input_html: { class: 'select2' }, wrapper_html: { class: "center_form" } %>
+            <%= f.button :submit, class: 'btn btn-orange', data_action: 'click->location#refresh' %>
+>>>>>>> 6f503d54f13e267068abf6d097610074ced4960f
+          <% end %>
+          <h2> <%  @meetle.locations.each do |location| %></h2>
+            <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
           <% end %>
           <%= render "partials/location" unless @meetle.stations.empty? %>
+<<<<<<< HEAD
         </div>
         <div class="col">
           <button type="button" class="btn btn-orange mt-5" data-toggle="modal" data-target="#exampleModal">
+=======
+          <h2 class="mt-5 mb-5">You are currently meeting for <%= @meetle.activity %> </h2>
+          <% if @meetle.result_stations.exists? %>
+            <div id="map"
+     style="width: 100%; height: 400px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['mapbox_api_key'] %>"></div>
+          <% end %>
+          <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal">
+>>>>>>> 6f503d54f13e267068abf6d097610074ced4960f
             Share your meetle
           </button>
         </div>
