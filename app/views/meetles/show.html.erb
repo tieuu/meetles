@@ -21,9 +21,11 @@
       <div class="row mt-5">
         <div class="col">
           <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
-            <%= f.input :stations, collection: Station.all.order(:name), placeholder: @current_station   %>
-            <!-- <%= f.input :activity, collection: Meetle::ACTIVITY, placeholder: @meetle.activity  %> -->
+            <%= f.input :stations, collection: Station.all.order(:name), label: "Add your station", input_html: { class: 'select2' }, wrapper_html: { class: "center_form" } %>
             <%= f.button :submit, class: 'btn btn-orange', data_action: 'click->location#refresh' %>
+          <% end %>
+          <h2> <%  @meetle.locations.each do |location| %></h2>
+            <h2>  <%= location.user.email %>'s location: <%= location.station.name %></h2>
           <% end %>
           <%= render "partials/location" unless @meetle.stations.empty? %>
           <h2 class="mt-5 mb-5">You are currently meeting for <%= @meetle.activity %> </h2>
