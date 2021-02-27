@@ -12,7 +12,6 @@ class MeetlesController < ApplicationController
     @user = current_user
     @meetle_location
     @result_stations = create_result_stations
-
     @markers = []
     @meetle.result_stations.reject{ |result| result.station.latitude.nil?}.each do |result|
       @markers << {
@@ -20,6 +19,7 @@ class MeetlesController < ApplicationController
         lng: result.station.longitude
       }
     end
+
   end
 
   def create
@@ -83,21 +83,27 @@ class MeetlesController < ApplicationController
   end
 
   def create_result_stations
-    @stations = @meetle.locations.map do |loc|
+    stations = @meetle.locations.map do |loc|
       loc.station.name
     end
-    if @stations.size == 2
+    fake_results = nil
+    if stations.size == 2
       fake_results = ['sugamo', 'sengoku', 'shinjuku']
-    elsif @stations.size == 3
+    elsif stations.size == 3
       fake_results = ['sugamo', 'nakai', 'ueno']
     end
     unless fake_results.nil?
       fake_results = fake_results.map { |station| Station.where(name: station).first }
-      @result_stations = fake_results.map do |station|
+      if @meetle.result_stations.exists?
+        ResultStation.where(meetle: @meetle).each { |result| result.destroy}
+      end
+      result_stations = fake_results.map do |station|
+
         ResultStation.create(meetle: @meetle, vote: 0, station: station)
       end
     end
   end
+
 end
 
 FAKE_RESULT_2 = {
