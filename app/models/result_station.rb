@@ -7,6 +7,8 @@ class ResultStation < ApplicationRecord
   belongs_to :meetle
   has_many :fares
 
+  acts_as_favoritable
+
   def self.location(station)
     url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=formatted_address,name,geometry&key=#{ENV['GOOGLE_API']}"
 

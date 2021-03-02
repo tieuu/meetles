@@ -10,4 +10,6 @@ class User < ApplicationRecord
 
   validates :email, presence: true
   validates :password, presence: true
+
+  acts_as_favoritor
 end
