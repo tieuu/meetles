@@ -9,33 +9,34 @@ require 'json'
 require 'open-uri'
 
 puts "Deleting everything"
+ResultStation.destroy_all
 Location.destroy_all
+Station.destroy_all
 Meetle.destroy_all
 User.destroy_all
-Station.destroy_all
 
 puts "seed users"
 User.create!(
   email: "dan@gmail.com",
-  # username: "dan",
+  name: "dan",
   password: "meetles1"
 )
 
 User.create!(
   email: "julian@gmail.com",
-  # username: "julian",
+  name: "julian",
   password: "meetles2"
 )
 
 User.create!(
   email: "tieu@gmail.com",
-  # username: "tieu",
+  name: "tieu",
   password: "meetles3"
 )
 
 User.create!(
   email: "vincent@gmail.com",
-  # username: "vincent",
+  name: "vincent",
   password: "meetles4"
 )
 

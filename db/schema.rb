@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_104249) do
+ActiveRecord::Schema.define(version: 2021_02_27_052356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_02_18_104249) do
     t.bigint "station_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["meetle_id"], name: "index_locations_on_meetle_id"
     t.index ["station_id"], name: "index_locations_on_station_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
@@ -53,6 +55,8 @@ ActiveRecord::Schema.define(version: 2021_02_18_104249) do
     t.integer "vote"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["meetle_id"], name: "index_result_stations_on_meetle_id"
     t.index ["station_id"], name: "index_result_stations_on_station_id"
   end
@@ -62,6 +66,8 @@ ActiveRecord::Schema.define(version: 2021_02_18_104249) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name_kanji"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "users", force: :cascade do |t|

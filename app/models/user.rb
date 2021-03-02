@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable
   has_many :locations
+  has_many :stations, through: :locations
   has_many :meetles, through: :locations
   # has_many :meetles_as_owner, class_name: "Meetle", foreign_key: :user_id
 

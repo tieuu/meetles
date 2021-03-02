@@ -1,0 +1,15 @@
+<div id="location" data-meetle-id="<%= @meetle.id %>" class="my-5">
+  <div class="card-border">
+    <div class="card-stations-head m-2">
+      Activity type: <strong class="font-size: 24px;"><%= @meetle.activity %></strong>
+    </div>
+  </div>
+  <div class="card-spacing"></div>
+  <div class="card-border">
+    <ul class="list-group list-group-flush">
+      <% @meetle.locations.each do |location| %>
+        <li class="list-group-item card-stations-infos"><%= location.user.name %>'s location: <%= location.station.name %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

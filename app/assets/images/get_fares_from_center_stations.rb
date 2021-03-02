@@ -4,17 +4,19 @@ require 'json'
 latitude = 35.70966888192536
 longitude = 139.69125122597706
 
-from_stations = ["有楽町", "目黒", "西台"]
-base_url = "https://api.ekispert.jp/v1/json/"
-station_endpoint = "station/light?"
-key = "key=#{ENV['EKISPERT_KEY']}"
-from_stations = from_stations.map do |station|
-  sta_name = "name=#{CGI.escape(station)}"
-  type = "type=train"
-  url = "#{base_url}#{station_endpoint}#{sta_name}&#{type}&#{key}"
-  json_file = JSON.parse(open(url).read)
-  { name: json_file['ResultSet']['Point']['Station']['Name'],
-    code: json_file['ResultSet']['Point']['Station']['code'] }
+def self.fetch_station_code(_knaji_name)
+  from_stations = ["有楽町", "目黒", "西台"]
+  base_url = "https://api.ekispert.jp/v1/json/"
+  station_endpoint = "station/light?"
+  key = "key=#{ENV['EKISPERT_KEY']}"
+  return from_stations.map do |station|
+    sta_name = "name=#{CGI.escape(station)}"
+    type = "type=train"
+    url = "#{base_url}#{station_endpoint}#{sta_name}&#{type}&#{key}"
+    json_file = JSON.parse(open(url).read)
+    { name: json_file['ResultSet']['Point']['Station']['Name'],
+      code: json_file['ResultSet']['Point']['Station']['code'] }
+  end
 end
 
 # station name should be lower-case, with only the station name without "-" (don't the "station" or "sta.")
