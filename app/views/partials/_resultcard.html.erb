@@ -5,7 +5,7 @@
         <div>
           <h2><%= result_station.station.name.capitalize %></h2>
           <p>Duration: xx mins - price ¥5,000</p>
-          <i class="topright fas fa-heart"></i>
+          <button class="topright button-heart"><i class="far fa-heart"></i> <%= result_station.favoritors.count %></button>
         </div>
       </div>
       <div class="card-spacing">

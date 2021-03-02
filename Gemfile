@@ -31,6 +31,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'devise'
+gem 'acts_as_favoritor'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
@@ -56,7 +57,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'acts_as_favoritor'
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'

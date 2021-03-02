@@ -3,11 +3,10 @@ require 'nokogiri'
 require 'json'
 
 class ResultStation < ApplicationRecord
+  acts_as_favoritable
   belongs_to :station
   belongs_to :meetle
   has_many :fares
-
-  acts_as_favoritable
 
   def self.location(station)
     url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=formatted_address,name,geometry&key=#{ENV['GOOGLE_API']}"
@@ -29,4 +28,6 @@ class ResultStation < ApplicationRecord
     html_doc['results'].first(3).each { |result| restaurants << result['name'] }
     return restaurants
   end
+
+  acts_as_favoritable
 end
