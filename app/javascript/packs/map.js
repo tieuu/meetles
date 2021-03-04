@@ -16,20 +16,26 @@ const initMapbox = () => {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v10'
     });
-   const markers = JSON.parse(mapElement.dataset.markers);
-    // markers.meetles.forEach((marker) => {
-    //   new mapboxgl.Marker()
-    //     .setLngLat([ marker.lng, marker.lat ])
-    //     .addTo(map);
-    // });
-    markers.forEach((marker) => {
+    const markersUsers = JSON.parse(mapElement.dataset.markersUsers);
+    markersUsers.forEach((marker) => {
       new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
         .addTo(map);
     });
-    fitMapToMarkers(map, markers);
-  }
+    fitMapToMarkers(map, markersUsers);
+    const markersLocations = JSON.parse(mapElement.dataset.markersLocations);
+    markersLocations.forEach((marker) => {
+      new mapboxgl.Marker()
+        .setLngLat([ marker.lng, marker.lat ])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
+        .addTo(map);
+    });
+    fitMapToMarkers(map, markersLocations);
 
+  }
 };
 
 
