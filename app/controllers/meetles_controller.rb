@@ -10,35 +10,26 @@ class MeetlesController < ApplicationController
   def show
     @meetle = Meetle.find(params[:id])
     @user = current_user
-    @meetle_location
     @result_stations = create_result_stations
     @markers = []
-    @meetle.result_stations.reject{ |result| result.station.latitude.nil?}.each do |result|
+    @meetle.result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
       @markers << {
         lat: result.station.latitude,
         lng: result.station.longitude
       }
     end
-
   end
 
   def create
     @user = current_user
-    # @station = Station.find(meetle_params[:stations])
     @meetle = Meetle.new(active: true)
-    # @location = Location.new(station: @station, user: @user, meetle: @meetle)
     @meetle.user = @user
     @activity = meetle_params[:activity]
     @meetle.activity = @activity
-
     if @meetle.save
-
       redirect_to meetle_path(@meetle)
       @activity = meetle_params[:activity]
-      if meetle_params[:activity].present?
-
-        @meetle.update(activity: @activity)
-      end
+      @meetle.update(activity: @activity) if meetle_params[:activity].present?
     else
       render :index
     end
@@ -48,34 +39,26 @@ class MeetlesController < ApplicationController
     @meetle = Meetle.find(params[:id])
     @user = current_user
     @activity = meetle_params[:activity]
-    if meetle_params[:activity].present?
-      @meetle.update(activity: @activity)
-    end
+    @meetle.update(activity: @activity) if meetle_params[:activity].present?
     if meetle_params[:stations].present?
       @station = Station.find(meetle_params[:stations])
       if current_user.locations.where(meetle_id: @meetle.id).exists?
         @location = Location.where(user: current_user, meetle: @meetle)
         @location.update(station: @station)
-
       else
         @location = Location.new(station: @station, user: @user, meetle: @meetle)
         @meetle.locations << @location
-
       end
       @meetle.save
-      MeetleChannel.broadcast_to(
-        @meetle,
-        render_to_string(partial: "partials/location")
-      )
+      MeetleChannel.broadcast_to(@meetle, render_to_string(partial: "partials/location"))
     end
-
     redirect_to meetle_path(@meetle)
   end
 
   private
 
   def meetle_params
-    params.require(:meetle).permit(:stations, :activity)
+    params.require(:meetle).permit(:stations, :activity, :result_stations)
   end
 
   def set_meetle
@@ -86,6 +69,7 @@ class MeetlesController < ApplicationController
     stations = @meetle.locations.map do |loc|
       loc.station.name
     end
+
     fake_results = nil
     if stations.size == 2
       fake_results = ['sugamo', 'sengoku', 'shinjuku']
@@ -95,15 +79,13 @@ class MeetlesController < ApplicationController
     unless fake_results.nil?
       fake_results = fake_results.map { |station| Station.where(name: station).first }
       if @meetle.result_stations.exists?
-        ResultStation.where(meetle: @meetle).each { |result| result.destroy}
+        ResultStation.where(meetle: @meetle).each { |result| result.destroy }
       end
       result_stations = fake_results.map do |station|
-
-        ResultStation.create(meetle: @meetle, vote: 0, station: station)
+        ResultStation.create(meetle: @meetle, voted: false, station: station)
       end
     end
   end
-
 end
 
 FAKE_RESULT_2 = {

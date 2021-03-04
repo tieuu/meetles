@@ -5,34 +5,28 @@
         <div>
           <h2><%= result_station.station.name.capitalize %></h2>
           <p>Duration: xx mins - price ¥5,000</p>
-          <button class="topright button-heart"><i class="far fa-heart"></i> <%= result_station.favoritors.count %></button>
+          <%= simple_form_for [@meetle, result_station], remote: true, method: 'patch' do |f| %>
+            <% if result_station.favorited_by?(current_user) %>
+              <button type="submit" class="topright" value='<%= false %>' name='voted'><i class="fas fa-heart"></i> <%= result_station.favoritors.count %></button>
+            <% else %>
+              <button type="submit" class='topright' value='<%= true %>' name='voted'><i class="far fa-heart"></i> <%= result_station.favoritors.count %></button>
+            <% end %>
+          <% end %>
         </div>
       </div>
       <div class="card-spacing">
       </div>
       <div class="card-border">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item card-result-infos">
-            <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
-            <div>
-              <p><%= ResultStation.restaurant(result_station.station.name)[0] %></p>
-              <p>¥¥¥</p>
-            </div>
-          </li>
-          <li class="list-group-item card-result-infos">
-            <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
-            <div>
-              <p><%= ResultStation.restaurant(result_station.station.name)[1] %></p>
-              <p>¥¥¥</p>
-            </div>
-          </li>
-          <li class="list-group-item card-result-infos">
-            <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
-            <div>
-              <p><%= ResultStation.restaurant(result_station.station.name)[2] %></p>
-              <p>¥¥¥</p>
-            </div>
-          </li>
+          <% 3.times do %>
+            <li class="list-group-item card-result-infos">
+              <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
+              <div>
+                <p><%= ResultStation.restaurant(result_station.station.name)[0] %></p>
+                <p>¥¥¥</p>
+              </div>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
