@@ -2,6 +2,8 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 require 'cgi'
+# require 'dotenv'
+# Dotenv.load
 
 def location(station)
   url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{station}%20station&inputtype=textquery&fields=name,geometry&key=#{ENV['GOOGLE_API']}"
@@ -69,23 +71,25 @@ a = location("yurakucho")
 b = location("meguro")
 c = location("nishidai")
 
-ox, oy = find_circumcenter(a, b, c)
+p find_circumcenter(a, b, c)
 
-url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{ox},#{oy}&radius=5000&type=shopping_mall&fields=name&key=#{ENV['GOOGLE_API']}"
+# ox, oy = find_circumcenter(a, b, c)
 
-html_file = open(url).read
-html_doc = JSON.parse(html_file)
+# url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{ox},#{oy}&radius=5000&type=shopping_mall&fields=name&key=#{ENV['GOOGLE_API']}"
 
-places = []
-html_doc['results'].first(3).each { |result| places << result['name'] }
+# html_file = open(url).read
+# html_doc = JSON.parse(html_file)
 
-stations = []
-places.each do |place|
-  place_location = location(CGI.escape(place))
-  ["train", "subway"].each do |type|
-    jaysonfile = JSON.parse(open("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{place_location[0]},#{place_location[1]}&radius=5000&type=#{type}_station&fields=name&key=#{ENV['GOOGLE_API']}").read)
-    jaysonfile['results'].each { |result| stations << result['name'] unless stations.include?(result['name']) }
-  end
-end
+# places = []
+# html_doc['results'].first(3).each { |result| places << result['name'] }
 
-puts stations
+# stations = []
+# places.each do |place|
+#   place_location = location(CGI.escape(place))
+#   ["train", "subway"].each do |type|
+#     jaysonfile = JSON.parse(open("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{place_location[0]},#{place_location[1]}&radius=5000&type=#{type}_station&fields=name&key=#{ENV['GOOGLE_API']}").read)
+#     jaysonfile['results'].each { |result| stations << result['name'] unless stations.include?(result['name']) }
+#   end
+# end
+
+# p stations
