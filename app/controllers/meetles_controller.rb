@@ -60,10 +60,19 @@ class MeetlesController < ApplicationController
         @location = Location.new(station: @station, user: current_user, meetle: @meetle)
         @location.save
       end
+      @markers = []
+      @meetle.result_stations.reject{ |result| result.station.latitude.nil? }.each do |result|
+        @markers << {
+          lat: result.station.latitude,
+          lng: result.station.longitude
+        }
+      end
       set_meetle
       MeetleChannel.broadcast_to(
         @meetle,
-        render_to_string(partial: "partials/location")
+        { partial: render_to_string(partial: "partials/location"),
+          coordinates: @markers
+          }
       )
     end
     redirect_to meetle_path(@meetle)
