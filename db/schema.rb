@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_122304) do
     t.string "name_kanji"
     t.float "latitude"
     t.float "longitude"
+    t.string "code"
   end
 
   create_table "users", force: :cascade do |t|
