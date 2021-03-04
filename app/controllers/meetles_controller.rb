@@ -10,11 +10,25 @@ class MeetlesController < ApplicationController
   def show
     @user = current_user
     @result_stations = @meetle.result_stations
-    @markers = []
+    @markers_locations = []
     @result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
-      @markers << {
+      @markers_locations << {
         lat: result.station.latitude,
-        lng: result.station.longitude
+        lng: result.station.longitude,
+        name: Station.find(result.station_id).name,
+        type: "Destination",
+        info: "destination_station"
+      }
+    end
+
+    @markers_users = []
+    @meetle.locations { |result| result.station.latitude.nil? }.each do |result|
+      @markers_users << {
+        lat: result.station.latitude,
+        lng: result.station.longitude,
+        name: User.find(result.user_id).name,
+        type: "#{User.find(result.user_id).name}'s location"
+
       }
     end
   end
