@@ -13,7 +13,7 @@ class MeetlesController < ApplicationController
     @meetle_location
     @result_stations = create_result_stations
     @markers = []
-    @meetle.result_stations.reject{ |result| result.station.latitude.nil?}.each do |result|
+    @meetle.result_stations.reject{ |result| result.station.latitude.nil? }.each do |result|
       @markers << {
         lat: result.station.latitude,
         lng: result.station.longitude
@@ -63,9 +63,18 @@ class MeetlesController < ApplicationController
 
       end
       @meetle.save
+      @markers = []
+      @meetle.result_stations.reject{ |result| result.station.latitude.nil? }.each do |result|
+        @markers << {
+          lat: result.station.latitude,
+          lng: result.station.longitude
+        }
+      end
       MeetleChannel.broadcast_to(
         @meetle,
-        render_to_string(partial: "partials/location")
+        { partial: render_to_string(partial: "partials/location"),
+          coordinates: @markers
+          }
       )
     end
 
