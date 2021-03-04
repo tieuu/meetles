@@ -1,74 +1,57 @@
-
 class MeetlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_meetle, only: :create_result_station
+  before_action :set_meetle, only: %i[show update create_result_station]
+  before_action :create_result_stations, only: :show
 
   def index
     @meetle = Meetle.new
   end
 
   def show
-    @meetle = Meetle.find(params[:id])
     @user = current_user
-    @meetle_location
-    @result_stations = create_result_stations
+    @result_stations = @meetle.result_stations
     @markers = []
-    @meetle.result_stations.reject{ |result| result.station.latitude.nil?}.each do |result|
+    @result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
       @markers << {
         lat: result.station.latitude,
         lng: result.station.longitude
       }
     end
-
   end
 
   def create
     @user = current_user
-    # @station = Station.find(meetle_params[:stations])
     @meetle = Meetle.new(active: true)
-    # @location = Location.new(station: @station, user: @user, meetle: @meetle)
     @meetle.user = @user
     @activity = meetle_params[:activity]
     @meetle.activity = @activity
-
     if @meetle.save
-
       redirect_to meetle_path(@meetle)
       @activity = meetle_params[:activity]
-      if meetle_params[:activity].present?
-
-        @meetle.update(activity: @activity)
-      end
+      @meetle.update(activity: @activity) if meetle_params[:activity].present?
     else
       render :index
     end
   end
 
   def update
-    @meetle = Meetle.find(params[:id])
-    @user = current_user
     @activity = meetle_params[:activity]
-    if meetle_params[:activity].present?
-      @meetle.update(activity: @activity)
-    end
+    @meetle.update(activity: @activity) if meetle_params[:activity].present?
     if meetle_params[:stations].present?
       @station = Station.find(meetle_params[:stations])
-      if current_user.locations.where(meetle_id: @meetle.id).exists?
-        @location = Location.where(user: current_user, meetle: @meetle)
+      if current_user.locations.where(meetle: @meetle).exists?
+        @location = Location.find_by(user: current_user, meetle: @meetle)
         @location.update(station: @station)
-
       else
-        @location = Location.new(station: @station, user: @user, meetle: @meetle)
-        @meetle.locations << @location
-
+        @location = Location.new(station: @station, user: current_user, meetle: @meetle)
+        @location.save
       end
-      @meetle.save
+      set_meetle
       MeetleChannel.broadcast_to(
         @meetle,
         render_to_string(partial: "partials/location")
       )
     end
-
     redirect_to meetle_path(@meetle)
   end
 
@@ -83,101 +66,17 @@ class MeetlesController < ApplicationController
   end
 
   def create_result_stations
-    stations = @meetle.locations.map do |loc|
-      loc.station.name
-    end
-    fake_results = nil
-    if stations.size == 2
-      fake_results = ['sugamo', 'sengoku', 'shinjuku']
-    elsif stations.size == 3
-      fake_results = ['sugamo', 'nakai', 'ueno']
-    end
-    unless fake_results.nil?
-      fake_results = fake_results.map { |station| Station.where(name: station).first }
-      if @meetle.result_stations.exists?
-        ResultStation.where(meetle: @meetle).each { |result| result.destroy}
-      end
-      result_stations = fake_results.map do |station|
+    meetle_location = @meetle.stations
+    results = ResultStation.get_three_fairest_stations(meetle_location) if meetle_location.size >= 3
 
-        ResultStation.create(meetle: @meetle, vote: 0, station: station)
+    unless results.nil?
+      ResultStation.where(meetle: @meetle).each { |result| result.destroy } if @meetle.result_stations.exists?
+      results.each do |res|
+        res_sta = ResultStation.create(meetle: @meetle, vote: 0, station: res.first)
+        res.last.each do |fee|
+          Fare.create(station: fee.first, result_station: res_sta, fee: fee.last)
+        end
       end
     end
   end
-
 end
-
-FAKE_RESULT_2 = {
-  'yurakucho': {
-    'sugamo': {
-      fee: 200,
-      duration: 22
-    },
-    'sengoku': {
-      fee: 220,
-      duration: 15
-    },
-    'shinjuku': {
-      fee: 220,
-      duration: 13
-    }
-  },
-  'itabashihoncho': {
-    'sugamo': {
-      fee: 220,
-      duration: 8
-    },
-    'sengoku': {
-      fee: 220,
-      duration: 10
-    },
-    'shinjuku': {
-      fee: 220,
-      duration: 11
-    }
-  }
-}
-
-FAKE_RESULT_3 = {
-  'yurakucho': {
-    'sugamo': {
-      fee: 200,
-      duration: 22
-    },
-    'nakai': {
-      fee: 350,
-      duration: 39
-    },
-    'ueno': {
-      fee: 280,
-      duration: 15
-    }
-  },
-  'itabashihoncho': {
-    'sugamo': {
-      fee: 220,
-      duration: 8
-    },
-    'nakai': {
-      fee: 330,
-      duration: 50
-    },
-    'akebonobashi': {
-      fee: 280,
-      duration: 26
-    }
-  },
-  'meguro': {
-    'sugamo': {
-      fee: 200,
-      duration: 26
-    },
-    'nakai': {
-      fee: 320,
-      duration: 26
-    },
-    'ueno': {
-      fee: 280,
-      duration: 35
-    }
-  }
-}
