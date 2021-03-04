@@ -19,6 +19,7 @@ class MeetlesController < ApplicationController
         type: "Destination",
         info: "destination_station"
       }
+
     end
 
     @markers_users = []
@@ -27,7 +28,8 @@ class MeetlesController < ApplicationController
         lat: result.station.latitude,
         lng: result.station.longitude,
         name: User.find(result.user_id).name,
-        type: "#{User.find(result.user_id).name}'s location"
+        type: "#{User.find(result.user_id).name}'s location",
+        image_url: User.find(result.user_id).photo
 
       }
     end

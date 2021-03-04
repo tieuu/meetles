@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :locations
   has_many :stations, through: :locations
   has_many :meetles, through: :locations
+  has_one_attached :photo
   # has_many :meetles_as_owner, class_name: "Meetle", foreign_key: :user_id
 
   validates :email, presence: true

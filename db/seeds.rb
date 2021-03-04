@@ -33,13 +33,15 @@ User.create!(
   name: "tieu",
   password: "meetles3"
 )
-
-User.create!(
+avatar_vincent = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1614861921/Meetle/IMG_1458_wfhbla.jpg')
+user_vincent = User.create!(
   email: "vincent@gmail.com",
   name: "vincent",
   password: "meetles4"
-)
 
+)
+user_vincent.photo.attach(io: avatar_vincent, filename: 'vincent.png', content_type: 'image/png')
+user_vincent.save
 puts "seed stations name"
 url = JSON.parse(open('./app/assets/images/stations.json').read)
 
