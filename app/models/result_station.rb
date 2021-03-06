@@ -37,7 +37,9 @@ class ResultStation < ApplicationRecord
 
     places = {}
     html_doc['results'].first(3).each do |result|
-      places[result["name"]] = result["rating"]
+
+      places[result["name"]] = {rating: result["rating"], pricing: result["price_level"]}
+
     end
 
     return places
