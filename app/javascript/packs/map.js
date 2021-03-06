@@ -22,7 +22,6 @@ const initMapbox = () => {
     });
     const markersUsers = JSON.parse(mapElement.dataset.markersUsers);
     markersUsers.forEach((marker) => {
-<<<<<<< HEAD
         const element = document.createElement('div');
         element.className = 'marker';
         element.style.backgroundImage = `url('${marker.image_url}')`;
@@ -49,14 +48,9 @@ const initMapbox = () => {
         .addTo(map);
       allMarkers.push(locationMarker)
     });
-<<<<<<< HEAD
- fitMapToMarkers(map, markersLocations);
-  }
-=======
 
     fitMapToMarkers(map, markersUsers);
 }
->>>>>>> 6e18b6097b82ab9ec2b676df835c4cf7007917b7
 
 };
 
