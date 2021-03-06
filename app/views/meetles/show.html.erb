@@ -26,14 +26,14 @@
           <% end %>
           <%= render "partials/location" unless @meetle.stations.empty? %>
         </div>
-        <% if @meetle.result_stations.exists? %>
-          <div id="map"
+        <div id="map" data-map-id="<%= @meetle.id %>"
      style="width: 100%; height: 400px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API'] %>"></div>
-        <% end %>
+     data-markers-locations="<%= @markers_locations.to_json %>";
+     data-markers-users="<%= @markers_users.to_json %>";
+     data-mapbox-api-key="<%= ENV['MAPBOX_API'] %>">
+        </div>
       </div>
-      <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal" >
         Share your meetle
       </button>
       <%= render "partials/sharelink" %>
@@ -44,7 +44,7 @@
   <% if @meetle.stations.count > 1 %>
     <div class="row mt-5 justify-content-center">
       <% @result_stations.each do |result_station| %>
-        <div class="col-auto">
+        <div class="col-4">
           <%= render "partials/resultcard", result_station: result_station %>
           <div class="row justify-content-center mt-3">
             <a href="https://www.google.com/maps/place/Sugamo+Station/@35.7334192,139.7349074,16z/data=!4m8!1m2!2m1!1ssugamo+station!3m4!1s0x60188d990bffa915:0xa4d68de94432de9a!8m2!3d35.7334192!4d139.7392848" class="btn btn-orange"> Go to location
@@ -54,5 +54,4 @@
       <% end %>
     </div>
   <% end %>
-</div>
 </div>

@@ -1,4 +1,5 @@
 import consumer from "./consumer";
+import { updateMap } from "../packs/map";
 
 const initMeetleCable = () => {
   const locationsContainer = document.getElementById('location');
@@ -8,7 +9,9 @@ const initMeetleCable = () => {
     consumer.subscriptions.create({ channel: "MeetleChannel", id: id }, {
       received(data) {
         console.log(data);
-        locationsContainer.innerHTML = data;
+        locationsContainer.innerHTML = data.partial;
+        updateMap(data.coordinates);
+        // initMapbox;
       },
     });
   }
