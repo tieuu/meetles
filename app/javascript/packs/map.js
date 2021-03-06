@@ -32,6 +32,7 @@ const initMapbox = () => {
 
       new mapboxgl.Marker(element)
 
+      const userMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML('<h3>' + marker.name + '</h3><p>' + '</p>'))

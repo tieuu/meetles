@@ -4,7 +4,6 @@
       <div class="card-result-head">
         <div>
           <h2><%= result_station.station.name.capitalize %></h2>
-          <p>Duration: xx mins - price ¥5,000</p>
           <%= simple_form_for [@meetle, result_station], remote: true, method: 'patch' do |f| %>
             <% if result_station.favorited_by?(current_user) %>
               <button type="submit" class="topright" value='<%= false %>' name='voted'><i class="fas fa-heart"></i> <%= result_station.favoritors.count %></button>
