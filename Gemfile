@@ -36,6 +36,7 @@ gem 'cloudinary', '~> 1.16.0'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
+gem 'rack-timeout'
 
 group :development, :test do
   gem 'dotenv-rails'
