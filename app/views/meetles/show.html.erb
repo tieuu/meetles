@@ -29,8 +29,13 @@
         <% if @meetle.result_stations.exists? %>
           <div id="map" data-map-id="<%= @meetle.id %>"
      style="width: 100%; height: 400px;"
-     data-markers-locations="<%= @markers_locations.to_json %>"
-      data-markers-users="<%= @markers_users.to_json %>"
+     data-markers-locations="<%= @markers_locations.to_json %>";
+     data-markers-users="<%= @markers_users.to_json %>";
+     data-markers-users.backgroundImage = url('${data-markers-users.image_url}');
+     data-markers-users.backgroundSize = 'contain';
+     data-markers-users.width = '25px';
+     data-markers-users.height = '25px';
+
      data-mapbox-api-key="<%= ENV['MAPBOX_API'] %>"></div>
         <% end %>
       </div>

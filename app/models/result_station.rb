@@ -34,8 +34,11 @@ class ResultStation < ApplicationRecord
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
 
-    places = []
-    html_doc['results'].first(3).each { |result| places << result['name'] }
+    places = {}
+    html_doc['results'].first(3).each do |result|
+      places[result["name"]] = result["geometry"]["location"]
+    end
+
     return places
   end
 

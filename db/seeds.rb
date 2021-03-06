@@ -28,7 +28,8 @@ User.create!(
   password: "meetles2"
 )
 
-User.create!(
+avatar_tieu = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1614861921/Meetle/IMG_1458_wfhbla.jpg')
+user_tieu = User.create!(
   email: "tieu@gmail.com",
   name: "tieu",
   password: "meetles3"
@@ -47,10 +48,10 @@ url = JSON.parse(open('./app/assets/images/stations.json').read)
 
 url['stations'].each_with_index do |station, i|
   Station.create!(name: station['name'],
-                 name_kanji: station['name_kanji'],
-                 latitude: station['latitude'],
-                 longitude: station['longitude'],
-                 code: station['code'])
+                  name_kanji: station['name_kanji'],
+                  latitude: station['latitude'],
+                  longitude: station['longitude'],
+                  code: station['code'])
   puts i
 end
 
