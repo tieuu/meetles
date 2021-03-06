@@ -95,7 +95,7 @@ class MeetlesController < ApplicationController
     unless results.nil?
       ResultStation.where(meetle: @meetle).each { |result| result.destroy } if @meetle.result_stations.exists?
       results.each do |res|
-        res_sta = ResultStation.create(meetle: @meetle, vote: 0, station: res.first)
+        res_sta = ResultStation.create(meetle: @meetle, station: res.first)
         res.last.each do |fee|
           Fare.create(station: fee.first, result_station: res_sta, fee: fee.last)
         end
