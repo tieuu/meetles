@@ -1,7 +1,6 @@
 class MeetlesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_meetle, only: %i[show update create_result_station]
-  before_action :create_result_stations, only: :show
 
   def index
     @meetle = Meetle.new
@@ -19,7 +18,6 @@ class MeetlesController < ApplicationController
         type: "Destination",
         info: "destination_station"
       }
-
     end
 
     @markers_users = []
@@ -63,7 +61,7 @@ class MeetlesController < ApplicationController
         @location.save
       end
       @markers = []
-      @meetle.result_stations.reject{ |result| result.station.latitude.nil? }.each do |result|
+      @meetle.result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
         @markers << {
           lat: result.station.latitude,
           lng: result.station.longitude
@@ -73,10 +71,10 @@ class MeetlesController < ApplicationController
       MeetleChannel.broadcast_to(
         @meetle,
         { partial: render_to_string(partial: "partials/location"),
-          coordinates: @markers
-          }
+          coordinates: @markers }
       )
     end
+    create_result_stations
     redirect_to meetle_path(@meetle)
   end
 
@@ -92,7 +90,7 @@ class MeetlesController < ApplicationController
 
   def create_result_stations
     meetle_location = @meetle.stations
-    results = ResultStation.get_three_fairest_stations(meetle_location) if meetle_location.size >= 3
+    results = ResultStation.get_three_fairest_stations(meetle_location) if meetle_location.size >= 2
 
     unless results.nil?
       ResultStation.where(meetle: @meetle).each { |result| result.destroy } if @meetle.result_stations.exists?

@@ -34,14 +34,16 @@ class ResultStation < ApplicationRecord
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
 
-    restaurants = []
-    html_doc['results'].first(3).each { |result| restaurants << result['name'] }
-    return restaurants
+    places = []
+    html_doc['results'].first(3).each { |result| places << result['name'] }
+    return places
   end
 
   def self.get_three_fairest_stations(from_stations)
-    fees_hash = get_fees_from_circumcenter_stations(from_stations)
-    fees_hash.sort_by { |_k, v| v.values.max - v.values.min && v.values.min }[0..2]
+    if from_stations.size >= 3
+      fees_hash = get_fees_from_circumcenter_stations(from_stations)
+      fees_hash.sort_by { |_k, v| v.values.max - v.values.min && v.values.min }[0..2]
+    end
   end
 
   def self.find_circumcenter(stations)
@@ -94,24 +96,6 @@ class ResultStation < ApplicationRecord
     return [x, y]
   end
 
-  # def self.fetch_station_code(kanji_name)
-  #   base_url = "https://api.ekispert.jp/v1/json/"
-  #   station_endpoint = "station/light?"
-  #   key = "key=#{ENV['EKISPERT_KEY']}"
-  #   sta_name = "name=#{CGI.escape(kanji_name)}"
-  #   type = "type=train"
-  #   url = "#{base_url}#{station_endpoint}#{sta_name}&#{type}&#{key}"
-  #   json_file = JSON.parse(open(url).read)
-  #   result = if json_file['ResultSet']['Point'].instance_of?(Hash)
-  #              { name: json_file['ResultSet']['Point']['Station']['Name'],
-  #                code: json_file['ResultSet']['Point']['Station']['code'] }
-  #            else
-  #              { name: json_file['ResultSet']['Point'].first['Station']['Name'],
-  #                code: json_file['ResultSet']['Point'].first['Station']['code'] }
-  #            end
-  # end
-  # return hash {station name, station code}
-
   def self.get_stations_arround_circumcenter(stations)
     center_loc = find_circumcenter(stations)
     base_url = "https://api.ekispert.jp/v1/json/"
@@ -130,13 +114,14 @@ class ResultStation < ApplicationRecord
     end
     return stations
   end
-  # return array of hash [{station name, code},{station name, code},...]
 
   def self.get_fees_from_circumcenter_stations(from_stations)
     save_fees = {}
     goal_stations = get_stations_arround_circumcenter(from_stations)
     from_stations.each do |from_sta|
       goal_stations.each do |goal_sta|
+        next if from_sta == goal_sta
+
         base_url = "https://api.ekispert.jp/v1/json/"
         route_endpoint = "search/course/extreme?"
         via_list = "viaList=#{from_sta[:code]}:#{goal_sta[:code]}"
@@ -145,20 +130,25 @@ class ResultStation < ApplicationRecord
         json_file = JSON.parse(open(url).read)
         fee = nil
         if json_file['ResultSet']['Course'].instance_of?(Hash)
+          next unless json_file['ResultSet']['Course'].keys.include?("Price")
+
           price = json_file['ResultSet']['Course']['Price'].select { |h| h['kind'] == 'FareSummary' }
           fee = price.first['Oneway'].to_i
         else
           json_file['ResultSet']['Course'].each do |course|
+            next unless course.keys.include?("Price")
+
             price = course['Price'].select { |h| h['kind'] == 'FareSummary' }
             price = price.first['Oneway'].to_i
             fee = price if fee.nil? || (price < fee)
           end
         end
-        save_fees[goal_sta] = {} if save_fees[goal_sta].nil?
-        save_fees[goal_sta][from_sta] = fee
+        unless fee.nil?
+          save_fees[goal_sta] = {} if save_fees[goal_sta].nil?
+          save_fees[goal_sta][from_sta] = fee
+        end
       end
     end
     return save_fees
   end
-  # return hash
 end
