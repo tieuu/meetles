@@ -10,7 +10,7 @@ class MeetlesController < ApplicationController
   def show
     @meetle = Meetle.find(params[:id])
     @user = current_user
-    @result_stations = create_result_stations
+    @result_stations = @meetle.result_stations || create_result_stations
     @markers = []
     @meetle.result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
       @markers << {
