@@ -42,6 +42,8 @@ class ResultStation < ApplicationRecord
   def self.get_three_fairest_stations(from_stations)
     if from_stations.size >= 3
       fees_hash = get_fees_from_circumcenter_stations(from_stations)
+      return nil if fees_hash.nil?
+
       fees_hash.sort_by { |_k, v| v.values.max - v.values.min && v.values.min }[0..2]
     end
   end
@@ -98,6 +100,8 @@ class ResultStation < ApplicationRecord
 
   def self.get_stations_arround_circumcenter(stations)
     center_loc = find_circumcenter(stations)
+    return nil if center_loc.nil?
+
     base_url = "https://api.ekispert.jp/v1/json/"
     geo_endpoint = "geo/station?"
     radius = 5000
@@ -118,6 +122,8 @@ class ResultStation < ApplicationRecord
   def self.get_fees_from_circumcenter_stations(from_stations)
     save_fees = {}
     goal_stations = get_stations_arround_circumcenter(from_stations)
+    return nil if goal_stations.nil?
+
     from_stations.each do |from_sta|
       goal_stations.each do |goal_sta|
         next if from_sta == goal_sta
