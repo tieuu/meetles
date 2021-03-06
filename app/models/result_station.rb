@@ -128,7 +128,7 @@ class ResultStation < ApplicationRecord
     return nil if goal_stations.nil?
 
     from_stations.each do |from_sta|
-      goal_stations.first(20).each do |goal_sta|
+      goal_stations.first(10).each do |goal_sta|
         next if from_sta == goal_sta
 
         base_url = "https://api.ekispert.jp/v1/json/"
