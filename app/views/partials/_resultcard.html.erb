@@ -14,9 +14,11 @@
       <div class="card-border">
         <ul class="list-group list-group-flush">
 
-          <% ResultStation.fetch_activity(result_station.station).each do |activity| %>
+          <% ResultStation.fetch_activity(result_station.station, @meetle.activity).each do |activity| %>
             <li class="list-group-item card-result-infos">
-              <div><img class="align-self-center mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" /></div>
+              <div>
+                <img class="align-self-start mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+              </div>
               <div>
                 <p><%= activity %></p>
                 <p>¥¥¥</p>
