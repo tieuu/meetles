@@ -3,7 +3,6 @@ class ResultStationsController < ApplicationController
     @result_station = ResultStation.find(params[:id])
     current_user.favorite(@result_station)
     @result_station.save
-    raise
     redirect_to meetle_path(@result_station.meetle)
   end
 
