@@ -26,7 +26,6 @@ const initMapbox = () => {
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
         .addTo(map);
     });
-    fitMapToMarkers(map, markersUsers);
     const markersLocations = JSON.parse(mapElement.dataset.markersLocations);
     markersLocations.forEach((marker) => {
       new mapboxgl.Marker()
@@ -35,23 +34,33 @@ const initMapbox = () => {
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
         .addTo(map);
     });
-    fitMapToMarkers(map, markersLocations);
+    fitMapToMarkers(map, markersUsers);
 
   }
 };
 
 const updateMap = (markers) => {
-  console.log(markers);
-  markers.forEach((marker) => {
+  // const locationElement = document.getElementById('location')
+
+  const markersUsers = markers.users;
+  console.log(markersUsers);
+    markersUsers.forEach((marker) => {
       new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
         .addTo(map);
     });
-  fitMapToMarkers(map, markers);
+    const markersLocations = markers.locations;
+    markersLocations.forEach((marker) => {
+      new mapboxgl.Marker()
+        .setLngLat([ marker.lng, marker.lat ])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
+        .addTo(map);
+    });
+    fitMapToMarkers(map, markersUsers);
 };
-
-
   // [ ... ]
-
 
 export { initMapbox, updateMap };
