@@ -107,7 +107,7 @@ class ResultStation < ApplicationRecord
 
     base_url = "https://api.ekispert.jp/v1/json/"
     geo_endpoint = "geo/station?"
-    radius = 5000
+    radius = 2500
     geopoint = "geoPoint=#{center_loc[0]},#{center_loc[1]},#{radius}"
     type = "type=train"
     limit = "stationCount=0"
