@@ -31,7 +31,6 @@ class MeetlesController < ApplicationController
 
       }
     end
-
   end
 
   def create
@@ -88,7 +87,6 @@ class MeetlesController < ApplicationController
         @meetle,
         { partial: render_to_string(partial: "partials/location"),
           coordinates: { locations: @markers_locations, users: @markers_users } }
-      )
     end
     redirect_to meetle_path(@meetle)
   end
@@ -96,7 +94,7 @@ class MeetlesController < ApplicationController
   private
 
   def meetle_params
-    params.require(:meetle).permit(:stations, :activity)
+    params.require(:meetle).permit(:stations, :activity, :result_stations)
   end
 
   def set_meetle

@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'json'
 
 class ResultStation < ApplicationRecord
+  acts_as_favoritable
   belongs_to :station
   belongs_to :meetle
   has_many :fares, dependent: :destroy
@@ -160,4 +161,6 @@ class ResultStation < ApplicationRecord
     end
     return save_fees
   end
+
+  acts_as_favoritable
 end
