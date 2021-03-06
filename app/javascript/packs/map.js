@@ -26,6 +26,7 @@ const initMapbox = () => {
         element.style.backgroundSize = 'contain';
         element.style.width = '50px';
         element.style.height = '50px';
+        element.style.border = '1px solid black'
 
       new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
@@ -41,7 +42,7 @@ const initMapbox = () => {
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
         .addTo(map);
     });
- fitMapToMarkers(map, markersUsers, markersLocations);
+ fitMapToMarkers(map, markersLocations);
   }
 
 };
