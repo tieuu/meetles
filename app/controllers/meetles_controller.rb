@@ -31,6 +31,7 @@ class MeetlesController < ApplicationController
 
       }
     end
+
   end
 
   def create

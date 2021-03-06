@@ -33,6 +33,7 @@ const initMapbox = () => {
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
+        .image_url("#{marker[image_url]}")
         .addTo(map);
     });
     fitMapToMarkers(map, markersLocations);
