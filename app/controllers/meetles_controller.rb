@@ -84,13 +84,14 @@ class MeetlesController < ApplicationController
         }
       end
       set_meetle
-      MeetleChannel.broadcast_to(
-        @meetle,
-        { partial: render_to_string(partial: "partials/location"),
-          coordinates: { locations: @markers_locations, users: @markers_users } }
-      )
+      @updated_location = { partial: render_to_string(partial: "partials/location"),
+                            coordinates: { locations: @markers_locations, users: @markers_users } }
+      MeetleChannel.broadcast_to(@meetle, @updated_location)
     end
-    redirect_to meetle_path(@meetle)
+    respond_to do |format|
+      format.html { redirect_to meetle_path(@meetle) }
+      format.js
+    end
   end
 
   private
