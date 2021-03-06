@@ -87,6 +87,7 @@ class MeetlesController < ApplicationController
         @meetle,
         { partial: render_to_string(partial: "partials/location"),
           coordinates: { locations: @markers_locations, users: @markers_users } }
+      )
     end
     redirect_to meetle_path(@meetle)
   end
