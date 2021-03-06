@@ -16,29 +16,34 @@ const initMapbox = () => {
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
     map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10'
+      style: 'mapbox://styles/tieuu/ckluml80907cj17l71jqddxac'
     });
     const markersUsers = JSON.parse(mapElement.dataset.markersUsers);
     markersUsers.forEach((marker) => {
-      new mapboxgl.Marker()
+        const element = document.createElement('div');
+        element.className = 'marker';
+        element.style.backgroundImage = `url('${marker.image_url}')`;
+        element.style.backgroundSize = 'contain';
+        element.style.width = '50px';
+        element.style.height = '50px';
+
+      new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-        .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
+        .setHTML('<h3>' + marker.name + '</h3><p>' + '</p>'))
         .addTo(map);
     });
-    fitMapToMarkers(map, markersUsers);
     const markersLocations = JSON.parse(mapElement.dataset.markersLocations);
     markersLocations.forEach((marker) => {
       new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
-        .image_url("#{marker[image_url]}")
         .addTo(map);
     });
-    fitMapToMarkers(map, markersLocations);
-
+ fitMapToMarkers(map, markersUsers, markersLocations);
   }
+
 };
 
 const updateMap = (markers) => {
