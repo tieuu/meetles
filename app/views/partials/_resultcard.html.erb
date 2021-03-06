@@ -13,14 +13,15 @@
       </div>
       <div class="card-border">
         <ul class="list-group list-group-flush">
-          <% ResultStation.fetch_activity(result_station.station, @meetle.activity).each do |activity| %>
+          <% ResultStation.fetch_activity(result_station.station, @meetle.activity).each do |name, rating| %>
             <li class="list-group-item card-result-infos">
               <div>
                 <img class="align-self-start mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
               </div>
               <div>
-                <p><%= activity %></p>
-                <p>¥¥¥</p>
+                <p><%= name %></p>
+                <p><a  href= "https://www.google.com/maps/search/?api=1&query=<%= name %>, <%= result_station.station.name %>"> Check it out</a>  </p>
+                <p>Rating: <%= rating %> /5</p>
               </div>
             </li>
           <% end %>
