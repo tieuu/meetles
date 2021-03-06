@@ -61,21 +61,35 @@ class MeetlesController < ApplicationController
         @location = Location.new(station: @station, user: current_user, meetle: @meetle)
         @location.save
       end
-      @markers = []
+      create_result_stations
+      @markers_locations = []
       @meetle.result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
-        @markers << {
+        @markers_locations << {
           lat: result.station.latitude,
-          lng: result.station.longitude
+          lng: result.station.longitude,
+          name: Station.find(result.station_id).name,
+          type: "Destination",
+          info: "destination_station"
+        }
+      end
+      @markers_users = []
+      @meetle.locations { |result| result.station.latitude.nil? }.each do |result|
+        @markers_users << {
+          lat: result.station.latitude,
+          lng: result.station.longitude,
+          name: User.find(result.user_id).name,
+          type: "#{User.find(result.user_id).name}'s location",
+          image_url: Cloudinary::Utils.cloudinary_url(User.find(result.user_id).photo.key)
+
         }
       end
       set_meetle
       MeetleChannel.broadcast_to(
         @meetle,
         { partial: render_to_string(partial: "partials/location"),
-          coordinates: @markers }
+          coordinates: { locations: @markers_locations, users: @markers_users } }
       )
     end
-    create_result_stations
     redirect_to meetle_path(@meetle)
   end
 

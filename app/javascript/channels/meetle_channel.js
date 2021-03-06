@@ -11,6 +11,7 @@ const initMeetleCable = () => {
         console.log(data);
         locationsContainer.innerHTML = data.partial;
         updateMap(data.coordinates);
+        // initMapbox;
       },
     });
   }
