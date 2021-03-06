@@ -13,7 +13,7 @@
       </div>
       <div class="card-border">
         <ul class="list-group list-group-flush">
-          <% ResultStation.fetch_activity(result_station.station, @meetle.activity).each do |name, location| %>
+          <% ResultStation.fetch_activity(result_station.station, @meetle.activity).each do |name, rating| %>
             <li class="list-group-item card-result-infos">
               <div>
                 <img class="align-self-start mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
@@ -21,7 +21,7 @@
               <div>
                 <p><%= name %></p>
                 <p><a  href= "https://www.google.com/maps/search/?api=1&query=<%= name %>"> Check it out</a>  </p>
-                <p>¥¥¥</p>
+                <p>Rating: <%= rating %> /5</p>
               </div>
             </li>
           <% end %>
