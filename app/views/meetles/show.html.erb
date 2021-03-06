@@ -34,7 +34,7 @@
      data-mapbox-api-key="<%= ENV['MAPBOX_API'] %>"></div>
         <% end %>
       </div>
-      <button type="button" class="btn btn-orange p-2 mt-5" id="share">
+      <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal" >
         Share your meetle
       </button>
       <%= render "partials/sharelink" %>

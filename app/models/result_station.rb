@@ -29,7 +29,7 @@ class ResultStation < ApplicationRecord
 
   # fetch near by activities
   def self.fetch_activity(station, activity = "restaurant")
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{geoloc(station)[0]},#{geoloc(station)[1]}&radius=1500&type=#{activity}&key=#{ENV['GOOGLE_API']}"
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{geoloc(station)[0]},#{geoloc(station)[1]}&radius=1500&keyword=#{activity}&key=#{ENV['GOOGLE_API']}"
 
     html_file = open(url).read
     html_doc = JSON.parse(html_file)
