@@ -22,12 +22,15 @@ const initMapbox = () => {
     });
     const markersUsers = JSON.parse(mapElement.dataset.markersUsers);
     markersUsers.forEach((marker) => {
-      const element = document.createElement('div');
-      element.className = 'marker';
-      element.style.backgroundImage = `url('${marker.image_url}')`;
-      element.style.backgroundSize = 'contain';
-      element.style.width = '50px';
-      element.style.height = '50px';
+        const element = document.createElement('div');
+        element.className = 'marker';
+        element.style.backgroundImage = `url('${marker.image_url}')`;
+        element.style.backgroundSize = 'contain';
+        element.style.width = '50px';
+        element.style.height = '50px';
+        element.style.border = '1px solid black'
+
+      new mapboxgl.Marker(element)
 
       const userMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])

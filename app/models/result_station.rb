@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'json'
 
 class ResultStation < ApplicationRecord
+  acts_as_favoritable
   belongs_to :station
   belongs_to :meetle
   has_many :fares, dependent: :destroy
@@ -36,7 +37,9 @@ class ResultStation < ApplicationRecord
 
     places = {}
     html_doc['results'].first(3).each do |result|
-      places[result["name"]] = result["rating"]
+
+      places[result["name"]] = {rating: result["rating"], pricing: result["price_level"]}
+
     end
 
     return places
@@ -160,4 +163,6 @@ class ResultStation < ApplicationRecord
     end
     return save_fees
   end
+
+  acts_as_favoritable
 end

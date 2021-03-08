@@ -16,7 +16,7 @@ Meetle.destroy_all
 User.destroy_all
 
 puts "seed users"
-avatar_dan = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615006807/Meetle/Screen_Shot_2021-03-06_at_13.59.42_xd5vqb.png')
+avatar_dan = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615018025/Meetle/Image_from_iOS_dkrghz.jpg')
 user_dan =  User.create!(
   email: "dan@gmail.com",
   name: "dan",
@@ -25,7 +25,7 @@ user_dan =  User.create!(
 user_dan.photo.attach(io: avatar_dan, filename: 'vincent.png', content_type: 'image/png')
 user_dan.save
 
-avatar_julian = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615006807/Meetle/Screen_Shot_2021-03-06_at_13.59.42_xd5vqb.png')
+avatar_julian = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615018025/Meetle/Image_from_iOS_1_s2qmjo.jpg')
 user_julian = User.create!(
   email: "julian@gmail.com",
   name: "julian",
@@ -34,7 +34,7 @@ user_julian = User.create!(
 user_julian.photo.attach(io: avatar_julian, filename: 'vincent.png', content_type: 'image/png')
 user_julian.save
 
-avatar_tieu = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615006807/Meetle/Screen_Shot_2021-03-06_at_13.59.42_xd5vqb.png')
+avatar_tieu = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615018025/Meetle/Image_from_iOS_2_i59eh7.jpg')
 user_tieu = User.create!(
   email: "tieu@gmail.com",
   name: "tieu",
@@ -43,7 +43,7 @@ user_tieu = User.create!(
 user_tieu.photo.attach(io: avatar_tieu, filename: 'vincent.png', content_type: 'image/png')
 user_tieu.save
 
-avatar_vincent = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615006807/Meetle/Screen_Shot_2021-03-06_at_13.59.42_xd5vqb.png')
+avatar_vincent = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615018025/Meetle/Image_from_iOS_3_us7fha.jpg')
 user_vincent = User.create!(
   email: "vincent@gmail.com",
   name: "vincent",

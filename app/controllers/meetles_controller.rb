@@ -31,7 +31,6 @@ class MeetlesController < ApplicationController
 
       }
     end
-
   end
 
   def create
@@ -97,7 +96,7 @@ class MeetlesController < ApplicationController
   private
 
   def meetle_params
-    params.require(:meetle).permit(:stations, :activity)
+    params.require(:meetle).permit(:stations, :activity, :result_stations)
   end
 
   def set_meetle
