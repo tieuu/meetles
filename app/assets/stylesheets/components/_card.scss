@@ -55,8 +55,7 @@
 }
 
 .card-border {
-  border-style: solid;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border: solid;
 }
 
 .card-result-head .topright {
@@ -65,7 +64,7 @@
   right: 30px;
   font-size: 18px;
   border: none;
-  background-color: inherit;
+  background: none;
 }
 
 .card-stations {
