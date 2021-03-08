@@ -32,7 +32,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { initMapbox } from '../packs/map.js';
 import { initMeetleCable } from '../channels/meetle_channel';
-
+import { updateLoading } from '../components/loading';
 import "controllers";
 
 document.addEventListener('turbolinks:load', () => {
@@ -40,6 +40,7 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initSelect2();
   initMeetleCable();
+  updateLoading();
 });
 
 
