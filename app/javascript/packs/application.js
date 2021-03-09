@@ -40,7 +40,9 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initSelect2();
   initMeetleCable();
-  updateLoading();
+  if (document.getElementById("update-meetle")) {
+    updateLoading();
+  }
 });
 
 

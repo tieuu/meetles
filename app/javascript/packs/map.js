@@ -50,7 +50,9 @@ window.initMapbox = () => {
       allMarkers.push(locationMarker)
     });
 
-    fitMapToMarkers(map, markersUsers);
+    if (markersUsers.length) {
+      fitMapToMarkers(map, markersUsers);
+    }
 }
 
 };
