@@ -79,17 +79,19 @@ class MeetlesController < ApplicationController
           name: User.find(result.user_id).name,
           type: "#{User.find(result.user_id).name}'s location",
           image_url: Cloudinary::Utils.cloudinary_url(User.find(result.user_id).photo.key)
-
         }
       end
       set_meetle
-      MeetleChannel.broadcast_to(
-        @meetle,
-        { partial: render_to_string(partial: "partials/location"),
-          coordinates: { locations: @markers_locations, users: @markers_users } }
-      )
+      @updated_location = { partial: render_to_string(partial: "partials/location"),
+                            coordinates: { locations: @markers_locations, users: @markers_users },
+                            resultcontainer: render_to_string(partial: "partials/resultcontainer", locals: {meetle: @meetle}) }
+      MeetleChannel.broadcast_to(@meetle, @updated_location)
     end
-    redirect_to meetle_path(@meetle)
+    respond_to do |format|
+      format.html { redirect_to meetle_path(@meetle) }
+      format.js
+    end
+    # redirect_to meetle_path(@meetle)
   end
 
   private

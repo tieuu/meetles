@@ -3,7 +3,8 @@ import { updateMap } from "../packs/map";
 
 const initMeetleCable = () => {
   const locationsContainer = document.getElementById('location');
-  // select all the upvote number in the html
+  const resultContainer = document.getElementById('resultcontainer');
+
   if (locationsContainer) {
     const id = locationsContainer.dataset.meetleId;
 
@@ -16,7 +17,9 @@ const initMeetleCable = () => {
           })
         } else {
           locationsContainer.innerHTML = data.partial;
-          updateMap(data.coordinates);
+          resultContainer.innerHTML = data.resultcontainer;
+          // updateMap(data.coordinates);
+          initMapbox();
         }
       },
     });

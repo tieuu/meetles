@@ -22,17 +22,14 @@
         <div class="col">
           <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
             <%= f.input :stations, collection: Station.all.order(:name), label: "Add your station", input_html: { class: 'select2' }, wrapper_html: { class: "center_form" } %>
-            <%= f.button :submit, class: 'btn btn-orange', data_action: 'click->location#refresh' %>
+            <%= f.button :submit, class: 'btn btn-orange', id: "update-meetle", data_action: 'click->location#refresh' %>
           <% end %>
-          <%= render "partials/location" unless @meetle.stations.empty? %>
+          <%= render "partials/location" %>
         </div>
-        <% if @meetle.result_stations.exists? %>
-          <div id="map" data-map-id="<%= @meetle.id %>"
-     style= "width: 100%; height: 400px;"
-     data-markers-locations="<%= @markers_locations.to_json %>";
-     data-markers-users="<%= @markers_users.to_json %>";
-     data-mapbox-api-key="<%= ENV['MAPBOX_API'] %>"></div>
-        <% end %>
+
+        <div id="loading" class="spinner-border d-none" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
       <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal" >
         Share your meetle
@@ -41,18 +38,6 @@
     </div>
   </div>
 </div>
-<div class="row justify-content-center">
-  <% if @meetle.stations.count > 1 %>
-    <div class="row mt-5 justify-content-center">
-      <% @result_stations.each do |result_station| %>
-        <div class="col-4">
-          <%= render "partials/resultcard", result_station: result_station %>
-          <div class="row justify-content-center mt-3">
-            <a href="https://www.google.com/maps/place/Sugamo+Station/@35.7334192,139.7349074,16z/data=!4m8!1m2!2m1!1ssugamo+station!3m4!1s0x60188d990bffa915:0xa4d68de94432de9a!8m2!3d35.7334192!4d139.7392848" class="btn btn-orange"> Go to Station
-            </a>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+<div class="row justify-content-center" id="resultcontainer">
+  <%= render "partials/resultcontainer", meetle: @meetle %>
 </div>
