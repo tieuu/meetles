@@ -30,9 +30,6 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <button type="button" class="btn btn-orange p-2 mt-5" data-toggle="modal" data-target="#exampleModal" >
-        Share your meetle
-      </button>
       <%= render "partials/sharelink" %>
     </div>
   </div>
@@ -40,4 +37,9 @@
 <%= render "partials/map" %>
 <div class="row justify-content-center" id="resultcontainer">
   <%= render "partials/resultcontainer", meetle: @meetle %>
+</div>
+<div class="ml-2 fixed-bottom">
+  <a href="https://social-plugins.line.me/lineit/share?url=<%= request.original_url %>" class="fab fa-line fa-w-14 fa-2x" id="share" ></a>
+  <a href="https://www.facebook.com/sharer.php?u=<%= request.original_url %>" class="fab fa-facebook-square fa-w-14 fa-2x" id="share"></a>
+  <a href="https://twitter.com/intent/tweet?url=<%= request.original_url %>" class="fab fa-twitter-square fa-w-14 fa-2x" id="share"></a>
 </div>
