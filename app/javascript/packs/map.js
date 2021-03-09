@@ -11,7 +11,7 @@ const fitMapToMarkers = (map, markers) => {
   map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
 };
 
-const initMapbox = () => {
+window.initMapbox = () => {
   const mapElement = document.getElementById('map');
 
   if (mapElement) { // only build a map if there's a div#map to inject into
@@ -93,5 +93,6 @@ const updateMap = (markers) => {
     fitMapToMarkers(map, markersUsers);
 };
   // [ ... ]
+const initMapbox = window.initMapbox;
 
 export { initMapbox, updateMap };

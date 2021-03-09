@@ -1,5 +1,8 @@
 // import { updateMap } from "../packs/map";
 // import { hideSpinner } from "../packs/loading";
 
- document.getElementById('location').innerHTML = `<%= @updated_location[:partial] %>`;
+console.log(document.getElementById('location'));
+console.log(document.getElementById(`<%= @updated_location[:partial] %>`));
+document.getElementById('location').innerHTML = `<%= @updated_location[:partial] %>`;
 document.getElementById("loading").classList.add("d-none");
+initMapbox();
