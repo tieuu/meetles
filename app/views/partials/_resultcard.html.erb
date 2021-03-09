@@ -5,11 +5,7 @@
         <div>
           <h2><%= result_station.station.name.capitalize %></h2>
           <%= simple_form_for [result_station.meetle, result_station], remote: true, method: 'patch' do |f| %>
-            <% if result_station.favorited_by?(current_user) %>
-              <button type="submit" class="topright" value='<%= false %>' name='voted'><i class="fas fa-heart"></i> <%= result_station.favoritors.count %></button>
-            <% else %>
-              <button type="submit" class="topright" value='<%= true %>' name='voted'><i class="far fa-heart"></i> <%= result_station.favoritors.count %></button>
-            <% end %>
+            <button type="submit" class="topright" data-toggle="tooltip" data-placement="top" title="Like this station"><%= icon('fas', 'heart') %> <%= result_station.favoritors.count %></button>
           <% end %>
           <% fee = result_station.fares.where(station: current_user.locations.find_by(meetle: result_station.meetle).station) %>
           <p>Fee : <%= fee.first.fee %>¥ </p>
