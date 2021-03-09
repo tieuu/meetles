@@ -10,11 +10,17 @@ const initMeetleCable = () => {
 
     consumer.subscriptions.create({ channel: "MeetleChannel", id: id }, {
       received(data) {
-        console.log(data);
-        locationsContainer.innerHTML = data.partial;
-        resultContainer.innerHTML = data.resultcontainer;
-        // updateMap(data.coordinates);
-        initMapbox();
+        // do that if uvote not there
+        if (data.upvote) {
+          Object.keys(data.upvote).forEach((id) => {
+            document.querySelector(`#card-result-${id} .topright`).innerHTML = `<i class="fas fa-heart"></i> ${data.upvote[id]}`;
+          })
+        } else {
+          locationsContainer.innerHTML = data.partial;
+          resultContainer.innerHTML = data.resultcontainer;
+          // updateMap(data.coordinates);
+          initMapbox();
+        }
       },
     });
   }
