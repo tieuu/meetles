@@ -38,18 +38,6 @@
     </div>
   </div>
 </div>
-<div class="row justify-content-center">
-  <% if @meetle.stations.count > 1 %>
-    <div class="row mt-5 justify-content-center">
-      <% @result_stations.each do |result_station| %>
-        <div class="col-4">
-          <%= render "partials/resultcard", result_station: result_station %>
-          <div class="row justify-content-center mt-3">
-            <a href="https://www.google.com/maps/place/Sugamo+Station/@35.7334192,139.7349074,16z/data=!4m8!1m2!2m1!1ssugamo+station!3m4!1s0x60188d990bffa915:0xa4d68de94432de9a!8m2!3d35.7334192!4d139.7392848" class="btn btn-orange"> Go to Station
-            </a>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+<div class="row justify-content-center" id="resultcontainer">
+  <%= render "partials/resultcontainer", meetle: @meetle %>
 </div>

@@ -83,7 +83,8 @@ class MeetlesController < ApplicationController
       end
       set_meetle
       @updated_location = { partial: render_to_string(partial: "partials/location"),
-                            coordinates: { locations: @markers_locations, users: @markers_users } }
+                            coordinates: { locations: @markers_locations, users: @markers_users },
+                            resultcontainer: render_to_string(partial: "partials/resultcontainer", locals: {meetle: @meetle}) }
       MeetleChannel.broadcast_to(@meetle, @updated_location)
     end
     respond_to do |format|
