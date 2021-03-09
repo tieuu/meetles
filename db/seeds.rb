@@ -25,6 +25,7 @@ user_dan =  User.create!(
 user_dan.photo.attach(io: avatar_dan, filename: 'vincent.png', content_type: 'image/png')
 user_dan.save
 
+
 avatar_julian = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615018025/Meetle/Image_from_iOS_1_s2qmjo.jpg')
 user_julian = User.create!(
   email: "julian@gmail.com",
@@ -63,5 +64,6 @@ url['stations'].each_with_index do |station, i|
                   code: station['code'])
   puts i
 end
+
 
 puts "Seed Done, Be carefull ... !"
