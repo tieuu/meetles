@@ -3,6 +3,7 @@
     <div class="card-result" id="card-result-<%= result_station.id %>">
       <div class="card-result-head">
         <div>
+          <h1> <%= cl_image_tag("https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg")%> </h1>
           <h2><%= result_station.station.name.capitalize %></h2>
           <%= simple_form_for [result_station.meetle, result_station], remote: true, method: 'patch' do |f| %>
             <% if result_station.favorited_by?(current_user) %>
