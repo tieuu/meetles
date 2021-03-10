@@ -19,6 +19,7 @@
       <div class="card-border">
         <ul class="list-group list-group-flush">
           <% ResultStation.fetch_activity(result_station.station, result_station.meetle.activity).each do |place| %>
+          <% next if place.nil? %>
             <li class="list-group-item card-result-infos">
               <div>
                 <%= image_tag place.last[:photo_url], :class => "align-self-start mr-3" %>

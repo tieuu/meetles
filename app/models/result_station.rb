@@ -38,6 +38,7 @@ class ResultStation < ApplicationRecord
 
     places = {}
     html_doc['results'].first(3).each do |result|
+      next if result["photos"].nil?
       photo_ref = result["photos"].first["photo_reference"]
       maxwidth = 600
       url = "https://maps.googleapis.com/maps/api/place/photo?photoreference=#{photo_ref}&maxwidth=#{maxwidth}&key=#{ENV['GOOGLE_API']}"
