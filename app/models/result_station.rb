@@ -45,8 +45,7 @@ class ResultStation < ApplicationRecord
       regex = /"(https.+[^\\])">/
       photo_url = regex.match(res)[1]
       places[result["name"]] =
-        { rating: result["rating"], pricing: result["price_level"],
-          photo_url: photo_url }
+        { rating: result["rating"], pricing: result["price_level"], photo_url: photo_url }
     end
     return places
   end
@@ -64,15 +63,24 @@ class ResultStation < ApplicationRecord
     pt1 = [stations[0].latitude, stations[0].longitude]
     pt2 = [stations[1].latitude, stations[1].longitude]
     pt3 = [stations[2].latitude, stations[2].longitude]
+    pt4 = [stations[3].latitude, stations[3].longitude] if stations.size == 4
     # Line Pt1Pt2 is represented as ax + by = c
-    a, b, c = line_from_points(pt1, pt2)
+    a, b, c = stations.size == 4 ? line_from_points(pt1, pt3) : line_from_points(pt1, pt2)
     # Line Pt2Pt3 is represented as ex + fy = g
-    e, f, g = line_from_points(pt2, pt3)
+    e, f, g = stations.size == 4 ? line_from_points(pt2, pt4) : line_from_points(pt2, pt3)
     # Converting lines Pt1Pt2 and Pt2Pt3 to perpendicular
     # vbisectors. After this, L = ax + by = c
     # M = ex + fy = g
-    a, b, c = perpendicular_bisector_from_line(pt1, pt2, a, b)
-    e, f, g = perpendicular_bisector_from_line(pt2, pt3, e, f)
+    a, b, c = if stations.size == 4
+                perpendicular_bisector_from_line(pt1, pt3, a, b)
+              else
+                perpendicular_bisector_from_line(pt1, pt2, a, b)
+              end
+    e, f, g = if stations.size == 4
+                perpendicular_bisector_from_line(pt2, pt4, e, f)
+              else
+                perpendicular_bisector_from_line(pt2, pt3, e, f)
+              end
     # The point of intersection of L and M gives
     # the circumcenter
     circumcenter = two_line_intersection(a, b, c, e, f, g)

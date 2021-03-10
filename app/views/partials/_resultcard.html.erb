@@ -8,8 +8,10 @@
           <%= simple_form_for [result_station.meetle, result_station], remote: true, method: 'patch' do |f| %>
             <button type="submit" class="topright" data-toggle="tooltip" data-placement="top" title="Like this station"><%= icon('fas', 'heart') %> <%= result_station.favoritors.count %></button>
           <% end %>
-          <% fee = result_station.fares.where(station: current_user.locations.find_by(meetle: result_station.meetle).station) %>
-          <p>Fee : <%= fee.first.fee %>¥ </p>
+          <% if current_user.locations.find_by(meetle: result_station.meetle) %>
+            <% fee = result_station.fares.where(station: current_user.locations.find_by(meetle: result_station.meetle).station) %>
+            <p>Fee : <%= fee.first.fee %>¥ </p>
+          <% end %>
         </div>
       </div>
       <div class="card-spacing">
