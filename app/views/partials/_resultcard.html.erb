@@ -22,29 +22,12 @@
           <% ResultStation.fetch_activity(result_station.station, result_station.meetle.activity).each do |place| %>
             <li class="list-group-item card-result-infos">
               <div>
-                <img class="align-self-start mr-3" src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+                <%= image_tag place.last[:photo_url], :class => "align-self-start mr-3" %>
               </div>
               <div>
                 <p><a  href= "https://www.google.com/maps/search/?api=1&query=<%= place.first %>, <%= result_station.station.name %>"><%= place.first %></a></p>
-                <p> <% place.last[:rating].to_i.times do  %>
-                    <i class="fas fa-star"></i>
-                  <% end %>
-                  <%if  place.last[:rating] > 0.5 && place.last[:rating] < 0.9%>
-                    <i class="fas fa-star-half"></i>
-                  <%end %>
-                  <%if  place.last[:rating] > 1.5 && place.last[:rating] < 1.9%>
-                    <i class="fas fa-star-half"></i>
-                  <%end %>
-                  <%if  place.last[:rating] > 2.5 && place.last[:rating] < 2.9%>
-                    <i class="fas fa-star-half"></i>
-                  <%end %>
-                  <%if  place.last[:rating] > 3.5 && place.last[:rating] < 3.9%>
-                    <i class="fas fa-star-half"></i>
-                  <%end %>
-                  <%if  place.last[:rating] > 4.5 && place.last[:rating] < 4.9%>
-                    <i class="fas fa-star-half"></i>
-                  <%end %>
-                </p>
+                <% rating = place.last[:rating] %>
+                <p> <%= icon('fas','star') * rating.to_i %><%= icon('fas', 'star-half') if rating-rating.to_i > 0.5 && rating-rating.to_i < 0.9 %></p>
                 <p> <% place.last[:pricing].to_i.times do  %>
                     <span class="jpic jpic-kaikei"></span>
                   <% end %> </p>
