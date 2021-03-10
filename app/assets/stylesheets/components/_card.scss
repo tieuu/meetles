@@ -1,12 +1,17 @@
 .card-result {
   overflow: hidden;
   background: white;
-  border-radius: 5px;
-}
 
+
+}
+.card-location {
+
+
+}
 .card-result img {
   height: 100%;
-  width: 50px;
+  width: 75px;
+  border-radius: 25%;
 }
 
 .card-result h2 {
@@ -29,7 +34,8 @@
   align-items: flex-end;
   position: center;
   background-color: $meetle-gray;
-  border-style: solid;
+  border-left:    3px solid ;
+  border-right:  3px solid ;
 }
 
 .card-result .card-result-infos {
@@ -52,10 +58,13 @@
 .card-spacing {
   height: 12px;
   background-color: $body-bg;
+
+
 }
 
 .card-border {
-  border: solid;
+  border:    3px solid ;
+
 }
 
 .card-result-head .topright {
@@ -71,15 +80,18 @@
 }
 
 .card-stations {
-  border-style: solid;
   border-radius: 5px;
   padding: 16px;
+
+
 }
 
 .card-stations h2 {
   margin-top: 5px;
   font-size: 32px;
   text-align: center;
+
+
 }
 
 .card-stations .card-stations-head {
@@ -89,7 +101,8 @@
   align-items: flex-end;
   position: center;
   background-color: $meetle-gray;
-  border-style: solid;
+
+
 }
 
 .card-stations .card-stations-infos {
@@ -99,9 +112,42 @@
   align-items: center;
   position: center;
   background-color: white;
+
+
 }
 
 .card-result a {
   text-decoration: none;
+
 }
 
+.card-border-results {
+  border-left:    3px solid ;
+  border-right:  3px solid ;
+  border-bottom: 3px solid ;
+    height: 360px;
+    display: block;
+  width: 300px;
+  display: block;
+
+}
+
+.card-result-head {
+  border-left:    3px solid ;
+  border-right:  3px solid ;
+  border-top: 3px solid ;
+  display: block;
+  width: 300px;
+  display: block;
+
+}
+
+.card-result-im {
+  display: flex;
+  justify-content: space-around;
+
+justify-content: center;
+  display: block;
+  background-image: 100%;
+
+}

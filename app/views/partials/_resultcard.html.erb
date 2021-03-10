@@ -2,35 +2,41 @@
   <div class="col">
     <div class="card-result" id="card-result-<%= result_station.id %>">
       <div class="card-result-head">
-        <div>
-          <h1> <%= cl_image_tag("https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg")%> </h1>
-          <h2><%= result_station.station.name.capitalize %></h2>
+        <div >
+          <div class="d-flex justify-content-center">
+            <h1> <%= cl_image_tag("https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg")%> </h1>
+          </div>
+          <div class="d-flex justify-content-center">
+            <h2><%= result_station.station.name.capitalize %></h2>
+          </div>
           <%= simple_form_for [result_station.meetle, result_station], remote: true, method: 'patch' do |f| %>
             <button type="submit" class="topright" data-toggle="tooltip" data-placement="top" title="Like this station"><%= icon('fas', 'heart') %> <%= result_station.favoritors.count %></button>
           <% end %>
-          <% if current_user.locations.find_by(meetle: result_station.meetle) %>
-            <% fee = result_station.fares.where(station: current_user.locations.find_by(meetle: result_station.meetle).station) %>
-            <p>Fee : <%= fee.first.fee %>¥ </p>
-          <% end %>
+          <div class="d-flex justify-content-center">
+            <% if current_user.locations.find_by(meetle: result_station.meetle) %>
+              <% fee = result_station.fares.where(station: current_user.locations.find_by(meetle: result_station.meetle).station) %>
+              <p>Fee : <%= fee.first.fee %>¥ </p>
+            <% end %>
+          </div>
         </div>
       </div>
-      <div class="card-spacing">
-      </div>
-      <div class="card-border">
+      <div class="card-border-results">
         <ul class="list-group list-group-flush">
           <% ResultStation.fetch_activity(result_station.station, result_station.meetle.activity).each do |place| %>
-          <% next if place.nil? %>
-            <li class="list-group-item card-result-infos">
-              <div>
-                <%= image_tag place.last[:photo_url], :class => "align-self-start mr-3" %>
+            <% next if place.nil? %>
+            <li class="list-group-item card-result-infos text-align-center">
+              <div class= "col">
+                <%= image_tag place.last[:photo_url], :class => "rounded-center" %>
               </div>
-              <div>
-                <p><a  href= "https://www.google.com/maps/search/?api=1&query=<%= place.first %>, <%= result_station.station.name %>"><%= place.first %></a></p>
-                <% rating = place.last[:rating] %>
-                <p> <%= icon('fas','star') * rating.to_i %><%= icon('fas', 'star-half') if rating-rating.to_i > 0.5 && rating-rating.to_i < 0.9 %></p>
-                <p> <% place.last[:pricing].to_i.times do  %>
-                    <span class="jpic jpic-kaikei"></span>
-                  <% end %> </p>
+              <div class= "col">
+                <div class ="d-flex-justify-content-center">
+                  <p><a  href= "https://www.google.com/maps/search/?api=1&query=<%= place.first %>, <%= result_station.station.name %>"><%= place.first.truncate(25) %></a></p>
+                  <% rating = place.last[:rating] %>
+                  <p> <%= icon('fas','star') * rating.to_i %><%= icon('fas', 'star-half') if rating-rating.to_i > 0.5 && rating-rating.to_i < 0.9 %></p>
+                  <p> <% place.last[:pricing].to_i.times do  %>
+                      <span class="jpic jpic-kaikei"></span>
+                    <% end %> </p>
+                </div>
               </div>
             </li>
           <% end %>

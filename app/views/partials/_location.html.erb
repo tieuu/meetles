@@ -1,7 +1,7 @@
 <div id="location" data-meetle-id="<%= @meetle.id %>" class="my-5">
   <% if !@meetle.stations.empty? %>
     <div class="card-border">
-      <div class="card-stations-head m-2">
+      <div class="card-location">
         Activity type: <strong class="font-size: 24px;"><%= @meetle.activity %></strong>
       </div>
     </div>
@@ -9,7 +9,7 @@
     <div class="card-border">
       <ul class="list-group list-group-flush">
         <% @meetle.locations.each do |location| %>
-          <li class="list-group-item card-stations-infos"><%= cl_image_tag location.user.photo.key, height: 30, width: 40, crop: :fill %><%= location.user.name %>'s location: <%= location.station.name %> </li>
+          <li class="list-group-item card-stations-infos d-flex justify-content-start"><%= cl_image_tag location.user.photo.key, height: 30, width: 40, crop: :fill %><%= location.user.name %>'s location: <%= location.station.name %> </li>
         <% end %>
       </ul>
     </div>
