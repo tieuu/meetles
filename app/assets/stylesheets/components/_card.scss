@@ -65,6 +65,9 @@
   font-size: 18px;
   border: none;
   background: none;
+  &:hover {
+    color: $meetle-orange;
+  }
 }
 
 .card-stations {

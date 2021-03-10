@@ -7,6 +7,7 @@ class ResultStation < ApplicationRecord
   belongs_to :station
   belongs_to :meetle
   has_many :fares, dependent: :destroy
+  has_one_attached :photo
 
   # fetch lat/long from a station name
   def self.geoloc(station)

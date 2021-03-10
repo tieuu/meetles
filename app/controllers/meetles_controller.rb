@@ -9,14 +9,22 @@ class MeetlesController < ApplicationController
   def show
     @user = current_user
     @result_stations = @meetle.result_stations
+    # @result_stations.each do |station|
+    #   picture_location_1 = URI.open('https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/Image_from_iOS_4_ggy6wm.jpg')
+
+    #   station.photo.attach(io: number_1, filename: 'number_1.png', content_type: 'image/png')
+    #   station.photo.save
+    # end
     @markers_locations = []
-    @result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
+
+    @result_stations.reject { |result| result.station.latitude.nil? }.each_with_index do |result, index|
       @markers_locations << {
         lat: result.station.latitude,
         lng: result.station.longitude,
         name: Station.find(result.station_id).name,
         type: "Destination",
-        info: "destination_station"
+        info: "destination_station",
+        image_url: "https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg"
       }
     end
 
@@ -28,7 +36,6 @@ class MeetlesController < ApplicationController
         name: User.find(result.user_id).name,
         # type: "#{User.find(result.user_id).name}'s location",
         image_url: Cloudinary::Utils.cloudinary_url(User.find(result.user_id).photo.key)
-
       }
     end
   end

@@ -26,8 +26,8 @@ window.initMapbox = () => {
         element.className = 'marker';
         element.style.backgroundImage = `url('${marker.image_url}')`;
         element.style.backgroundSize = 'contain';
-        element.style.width = '50px';
-        element.style.height = '50px';
+        element.style.width = '75px';
+        element.style.height = '75px';
         element.style.border = '1px solid black'
 
       new mapboxgl.Marker(element)
@@ -42,7 +42,17 @@ window.initMapbox = () => {
 
     const markersLocations = JSON.parse(mapElement.dataset.markersLocations);
     markersLocations.forEach((marker) => {
-      const locationMarker = new mapboxgl.Marker()
+      const element = document.createElement('div');
+        element.className = 'marker';
+        element.style.backgroundImage = `url('${marker.image_url}')`;
+        element.style.backgroundSize = 'contain';
+        element.style.width = '50px';
+        element.style.height = '50px';
+        element.style.border = '1px solid black'
+
+      new mapboxgl.Marker(element)
+
+      const locationMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
@@ -71,8 +81,8 @@ const updateMap = (markers) => {
       element.className = 'marker';
       element.style.backgroundImage = `url('${marker.image_url}')`;
       element.style.backgroundSize = 'contain';
-      element.style.width = '50px';
-      element.style.height = '50px';
+      element.style.width = '75px';
+      element.style.height = '75px';
 
       const userMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
@@ -84,6 +94,15 @@ const updateMap = (markers) => {
 
     const markersLocations = markers.locations;
     markersLocations.forEach((marker) => {
+      const element = document.createElement('div');
+        element.className = 'marker';
+        element.style.backgroundImage = `url('${marker.image_url}')`;
+        element.style.backgroundSize = 'contain';
+        element.style.width = '25px';
+        element.style.height = '25px';
+        element.style.border = '1px solid black'
+
+
       const locationMarker = new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
