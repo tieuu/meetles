@@ -38,11 +38,16 @@ class ResultStation < ApplicationRecord
 
     places = {}
     html_doc['results'].first(3).each do |result|
-
-      places[result["name"]] = {rating: result["rating"], pricing: result["price_level"]}
-
+      photo_ref = result["photos"].first["photo_reference"]
+      maxwidth = 600
+      url = "https://maps.googleapis.com/maps/api/place/photo?photoreference=#{photo_ref}&maxwidth=#{maxwidth}&key=#{ENV['GOOGLE_API']}"
+      res = Net::HTTP.get(URI(url))
+      regex = /"(https.+[^\\])">/
+      photo_url = regex.match(res)[1]
+      places[result["name"]] =
+        { rating: result["rating"], pricing: result["price_level"],
+          photo_url: photo_url }
     end
-
     return places
   end
 
