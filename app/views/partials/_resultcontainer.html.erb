@@ -1,5 +1,5 @@
 <% if meetle.stations.count > 1 %>
-  <div class="row mt-5 justify-content-center">
+  <div class="row mt-5  ">
     <% meetle.result_stations.each_with_index do |result_station, index| %>
       <div class="col-4">
         <%= render "partials/resultcard", result_station: result_station, index: index %>
