@@ -1,13 +1,8 @@
 .card-result {
   overflow: hidden;
   background: white;
-
-
 }
-.card-location {
 
-
-}
 .card-result img {
   height: 100%;
   width: 75px;
@@ -39,12 +34,20 @@
 }
 
 .card-result .card-result-infos {
-  padding: 8px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   position: center;
   background-color: white;
+  height: 120px;
+  border-bottom: solid 1px $meetle-gray;
+}
+
+.card-result-infos .link {
+  color: black;
+  &:hover {
+    color: $meetle-orange;
+  }
 }
 
 .card-result-infos .card-result-user {
@@ -52,19 +55,19 @@
   right: 16px;
   top: -20px;
   width: 40px;
-
 }
 
 .card-spacing {
   height: 12px;
   background-color: $body-bg;
+}
 
-
+.card-big-spacing {
+  height: 50px;
 }
 
 .card-border {
-  border:    3px solid ;
-
+  border: 3px solid ;
 }
 
 .card-result-head .topright {
@@ -82,16 +85,12 @@
 .card-stations {
   border-radius: 5px;
   padding: 16px;
-
-
 }
 
 .card-stations h2 {
   margin-top: 5px;
   font-size: 32px;
   text-align: center;
-
-
 }
 
 .card-stations .card-stations-head {
@@ -101,8 +100,6 @@
   align-items: flex-end;
   position: center;
   background-color: $meetle-gray;
-
-
 }
 
 .card-stations .card-stations-infos {
@@ -112,42 +109,46 @@
   align-items: center;
   position: center;
   background-color: white;
-
-
 }
 
 .card-result a {
   text-decoration: none;
-
 }
 
 .card-border-results {
-  border-left:    3px solid ;
-  border-right:  3px solid ;
+  border-left: 3px solid ;
+  border-right: 3px solid ;
   border-bottom: 3px solid ;
-    height: 360px;
-    display: block;
+  display: block;
   width: 300px;
   display: block;
-
 }
 
 .card-result-head {
-  border-left:    3px solid ;
-  border-right:  3px solid ;
-  border-top: 3px solid ;
+  border: 3px solid;
   display: block;
   width: 300px;
   display: block;
-
 }
 
 .card-result-im {
   display: flex;
   justify-content: space-around;
-
-justify-content: center;
+  justify-content: center;
   display: block;
   background-image: 100%;
+}
 
+.padding-left {
+  padding-left: 20px;
+}
+
+.card-picture {
+  object-fit: cover;
+  border-radius: 0 !important;
+  width: 100px !important;
+}
+
+.card-picture-container {
+  height: 100px;
 }

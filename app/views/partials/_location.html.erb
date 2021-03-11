@@ -9,7 +9,9 @@
     <div class="card-border">
       <ul class="list-group list-group-flush">
         <% @meetle.locations.each do |location| %>
-          <li class="list-group-item card-stations-infos d-flex justify-content-start"><%= cl_image_tag location.user.photo.key, height: 30, width: 40, crop: :fill %><%= location.user.name %>'s location: <%= location.station.name %> </li>
+          <div class="list-group-item card-stations-infos d-flex justify-content-start align-items-center"><%= cl_image_tag location.user.photo.key, height: 30, width: 40, crop: :fill %>
+            <div class="padding-left"> <%= location.user.name %>'s location: <%= location.station.name %></div>
+          </div>
         <% end %>
       </ul>
     </div>
