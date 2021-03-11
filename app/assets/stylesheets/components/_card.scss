@@ -1,12 +1,12 @@
 .card-result {
   overflow: hidden;
-  background: white;
+  background: $meetle-gray;
 }
 
 .card-result img {
   height: 100%;
   width: 75px;
-  border-radius: 25%;
+  border-radius: 50%;
 }
 
 .card-result h2 {
