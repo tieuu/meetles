@@ -30,7 +30,7 @@ window.initMapbox = () => {
         element.style.height = '75px';
         element.style.border = '1px solid black'
 
-      new mapboxgl.Marker(element)
+      // new mapboxgl.Marker(element)
 
       const userMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
@@ -50,7 +50,7 @@ window.initMapbox = () => {
         element.style.height = '50px';
         element.style.border = '1px solid black'
 
-      new mapboxgl.Marker(element)
+      // new mapboxgl.Marker(element)
 
       const locationMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
@@ -75,7 +75,6 @@ const updateMap = (markers) => {
   })
 
   const markersUsers = markers.users;
-  console.log(markersUsers);
     markersUsers.forEach((marker) => {
       const element = document.createElement('div');
       element.className = 'marker';
@@ -103,7 +102,7 @@ const updateMap = (markers) => {
         element.style.border = '1px solid black'
 
 
-      const locationMarker = new mapboxgl.Marker()
+      const locationMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
         .setHTML('<h3>' + marker.name + '</h3><p>' + marker.type + '</p>'))
