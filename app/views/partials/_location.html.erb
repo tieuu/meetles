@@ -9,7 +9,7 @@
     <div class="card-border">
       <ul class="list-group list-group-flush">
         <% @meetle.locations.each do |location| %>
-          <div class="list-group-item card-stations-infos d-flex justify-content-start align-items-center"><%= cl_image_tag location.user.photo.key, height: 30, width: 40, crop: :fill %>
+          <div class="list-group-item card-stations-infos d-flex align-items-center"><%= cl_image_tag location.user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="padding-left"> <%= location.user.name %>'s location: <%= location.station.name %></div>
           </div>
         <% end %>
