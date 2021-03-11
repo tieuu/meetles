@@ -1,0 +1,5 @@
+meta_product_name: "The Meetles"
+meta_title: "The Meetles - Meet in the middle ..."
+meta_description: "Do you have to meet friends, but can't decide where to meet ? Just set a meetle to find the fairest stations where to go ?"
+meta_image: "cover.png" # should exist in `app/assets/images/`
+twitter_account: "@product_twitter_account" # required for Twitter Cards
