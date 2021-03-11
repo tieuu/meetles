@@ -33,6 +33,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { initMapbox } from '../packs/map.js';
 import { initMeetleCable } from '../channels/meetle_channel';
 import { updateLoading } from '../components/loading';
+import { initScroll } from '../components/autoscroll';
 import "controllers";
 
 document.addEventListener('turbolinks:load', () => {
@@ -43,6 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.getElementById("update-meetle")) {
     updateLoading();
   }
+  initScroll();
 });
 
 

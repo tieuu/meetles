@@ -1,5 +1,6 @@
 import consumer from "./consumer";
 import { updateMap } from "../packs/map";
+import { scrollToResults } from "../components/autoscroll";
 
 const initMeetleCable = () => {
   const locationsContainer = document.getElementById('location');
@@ -24,6 +25,7 @@ const initMeetleCable = () => {
         } else {
           locationsContainer.innerHTML = data.partial;
           resultContainer.innerHTML = data.resultcontainer;
+          scrollToResults();
         }
       },
     });
