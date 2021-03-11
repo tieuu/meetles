@@ -69,13 +69,14 @@ class MeetlesController < ApplicationController
       end
       create_result_stations
       @markers_locations = []
-      @meetle.result_stations.reject { |result| result.station.latitude.nil? }.each do |result|
+      @meetle.result_stations.reject { |result| result.station.latitude.nil? }.each_with_index do |result, index|
         @markers_locations << {
           lat: result.station.latitude,
           lng: result.station.longitude,
           name: Station.find(result.station_id).name,
           type: "Destination",
-          info: "destination_station"
+          info: "destination_station",
+          image_url: "https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg"
         }
       end
       @markers_users = []
