@@ -1,8 +1,12 @@
 // import { updateMap } from "../packs/map";
 // import { hideSpinner } from "../packs/loading";
 
-console.log(document.getElementById('location'));
+console.log(document.getElementById('map'));
 console.log(document.getElementById(`<%= @updated_location[:partial] %>`));
 document.getElementById('location').innerHTML = `<%= @updated_location[:partial] %>`;
+document.getElementById('map').dataset.markersUsers = (`<%= @updated_location[:coordinates][:users] %>`)
+document.getElementById('map').dataset.markersLocations = (`<%= @updated_location[:coordinates][:locations] %>`)
+console.log(document.getElementById('map'));
+// initMapbox();
 document.getElementById("loading").classList.add("d-none");
-initMapbox();
+// initMapbox();
