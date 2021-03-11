@@ -16,7 +16,6 @@ const initMeetleCable = () => {
         // console.log(mapContainer.dataset.markersUsers);
         // console.log(mapContainer);
         // initMapbox();
-        updateMap(data.coordinates);
         // do that if uvote not there
         if (data.upvote) {
           Object.keys(data.upvote).forEach((id) => {
@@ -25,6 +24,7 @@ const initMeetleCable = () => {
         } else {
           locationsContainer.innerHTML = data.partial;
           resultContainer.innerHTML = data.resultcontainer;
+          updateMap(data.coordinates);
           scrollToResults();
         }
       },
