@@ -20,6 +20,17 @@
       </div>
       <div class="row mt-5">
         <div class="col">
+          <div class="card-result d-flex justify-content-center">
+            <% if @meetle.activity == "coffee" %>
+              <%= cl_image_tag("Meetle/coffee.jpg", :quality=>"100:444", :width=>250, :crop=>"scale") %>
+            <% elsif @meetle.activity == "food" %>
+              <%= cl_image_tag("Meetle/food.jpg", :quality=>"100:444", :width=>250, :crop=>"scale")%>
+            <% elsif @meetle.activity == "drinks" %>
+              <%= cl_image_tag("Meetle/drinks.jpg", :quality=>"100:444", :width=>250, :crop=>"scale")%>
+            <% elsif @meetle.activity == "fun" %>
+              <%= cl_image_tag("Meetle/fun.jpg", :quality=>"100:444", :width=>250, :crop=>"scale")%>
+            <% end %>
+          </div>
           <%= simple_form_for @meetle, remote: true, method: :patch do |f| %>
             <%= f.input :stations, collection: Station.all.order(:name), label: "Add your station", input_html: { class: 'select2' }, wrapper_html: { class: "center_form" } %>
             <%= f.button :submit, class: 'btn btn-orange', id: "update-meetle", data_action: 'click->location#refresh' %>
