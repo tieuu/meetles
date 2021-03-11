@@ -50,6 +50,12 @@
   }
 }
 
+.link {
+  color: black;
+  &:hover {
+    color: $meetle-orange;
+  }
+}
 .card-result-infos .card-result-user {
   position: center;
   right: 16px;
