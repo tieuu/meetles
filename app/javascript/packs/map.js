@@ -82,6 +82,7 @@ const updateMap = (markers) => {
       element.style.backgroundSize = 'contain';
       element.style.width = '75px';
       element.style.height = '75px';
+      element.style.border = '1px solid black'
 
       const userMarker = new mapboxgl.Marker(element)
         .setLngLat([ marker.lng, marker.lat ])
@@ -97,8 +98,8 @@ const updateMap = (markers) => {
         element.className = 'marker';
         element.style.backgroundImage = `url('${marker.image_url}')`;
         element.style.backgroundSize = 'contain';
-        element.style.width = '25px';
-        element.style.height = '25px';
+        element.style.width = '50px';
+        element.style.height = '50px';
         element.style.border = '1px solid black'
 
 
