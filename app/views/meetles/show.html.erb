@@ -50,9 +50,9 @@
   <%= render "partials/resultcontainer", meetle: @meetle %>
 </div>
 <div class="ml-2 fixed-bottom">
-  <a href="https://social-plugins.line.me/lineit/share?url=<%= request.original_url %>" class="fab fa-line fa-w-14 fa-2x" id="share" ></a>
-  <a href="https://www.facebook.com/sharer.php?u=<%= request.original_url %>" class="fab fa-facebook-square fa-w-14 fa-2x" id="share"></a>
-  <a href="https://twitter.com/intent/tweet?url=<%= request.original_url %>" class="fab fa-twitter-square fa-w-14 fa-2x" id="share"></a>
+  <a href="https://social-plugins.line.me/lineit/share?url=<%= request.original_url %>" class="fab fa-line fa-w-14 fa-2x" id="share" target="blank" ></a>
+  <a href="https://www.facebook.com/sharer.php?u=<%= request.original_url %>" class="fab fa-facebook-square fa-w-14 fa-2x" id="share" target="blank"></a>
+  <a href="https://twitter.com/intent/tweet?url=<%= request.original_url %>" class="fab fa-twitter-square fa-w-14 fa-2x" id="share" target="blank"></a>
 </div>
 <div class="card-big-spacing"></div>
 <a href="#resultscards" style="display: none;" id="scrollanchor"></a>
