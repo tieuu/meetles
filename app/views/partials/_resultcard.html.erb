@@ -22,14 +22,17 @@
       </div>
       <div class="card-border-results">
         <% ResultStation.fetch_activity(result_station.station, result_station.meetle.activity).each do |place| %>
-          <% next if place.nil? %>
           <div class="card-result-infos text-align-center">
             <div class= "col-5 card-picture-container">
-              <%= image_tag place.last[:photo_url], :class => "card-picture" %>
+              <% if place.last[:photo_url].nil? %>
+                <%= image_tag "No_Pic_Default.jpg" , :class => "card-picture" %>
+              <% else %>
+                <%= image_tag place.last[:photo_url] , :class => "card-picture" %>
+              <% end %>
             </div>
             <div class= "col-7">
               <div class ="d-flex-justify-content-center">
-                <p><a href= "https://www.google.com/maps/search/?api=1&query=<%= place.first %>, <%= result_station.station.name %>" class="link"><%= place.first.truncate(25) %></a></p>
+                <p><%= link_to place.first.truncate(25) , "https://www.google.com/maps/dir/?api=1&destination=#{place.last[:geoloc]["lat"]},#{place.last[:geoloc]["lng"]}&origin=#{current_user.locations.find_by(meetle: @meetle).station.latitude},#{current_user.locations.find_by(meetle: @meetle).station.longitude}" ,class: "link" , target: :_blank %></p>
                 <% rating = place.last[:rating] %>
                 <p> <%= icon('fas','star') * rating.to_i %><%= icon('fas', 'star-half') if rating-rating.to_i > 0.5 && rating-rating.to_i < 0.9 %></p>
                 <p> <% place.last[:pricing].to_i.times do  %>
