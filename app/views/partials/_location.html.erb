@@ -1,19 +1,19 @@
 <div id="location" data-meetle-id="<%= @meetle.id %>" class="my-5">
   <% if !@meetle.stations.empty? %>
-    <div class="card-border">
-      <div class="card-location">
-        Activity type: <strong class="font-size: 24px;"><%= @meetle.activity %></strong>
+    <div class="card-result">
+      <div class="row">
+        <div class="col">
+          <div class="card-border">
+            <ul class="list-group list-group-flush">
+              <% @meetle.locations.each do |location| %>
+                <div class="list-group-item card-stations-infos d-flex align-items-center"><%= cl_image_tag location.user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+                  <div class="padding-left"> <%= location.user.name %>'s location: <%= location.station.name %></div>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card-spacing"></div>
-    <div class="card-border">
-      <ul class="list-group list-group-flush">
-        <% @meetle.locations.each do |location| %>
-          <div class="list-group-item card-stations-infos d-flex align-items-center"><%= cl_image_tag location.user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="padding-left"> <%= location.user.name %>'s location: <%= location.station.name %></div>
-          </div>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

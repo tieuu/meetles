@@ -2,10 +2,10 @@
   <div class="col">
     <div class="card-result" id="card-result-<%= result_station.id %>">
       <div class="card-result-head">
+        <div class="float-icon">
+          <%= cl_image_tag("https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg")%>
+        </div>
         <div >
-          <div class="d-flex justify-content-center">
-            <h1> <%= cl_image_tag("https://res.cloudinary.com/deumrs4dd/image/upload/v1615288857/Meetle/#{index+1}.jpg")%> </h1>
-          </div>
           <div class="d-flex justify-content-center">
             <h2><%= result_station.station.name.capitalize %></h2>
           </div>
