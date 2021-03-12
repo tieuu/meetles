@@ -2,18 +2,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content body-bg">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Your Meetle link is:</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="exampleModalLabel">Share with your friends:</h5>
       </div>
-      <div class="modal-body">
-        <p><%= request.original_url %></p>
+      <div class="mt-2 mb-2">
+        <a href="https://social-plugins.line.me/lineit/share?url=<%= request.original_url %>" class="fab fa-line fa-w-14 fa-2x" id="share" target="blank" ></a>
+        <a href="https://www.facebook.com/sharer.php?u=<%= request.original_url %>" class="fab fa-facebook-square fa-w-14 fa-2x" id="share" target="blank"></a>
+        <a href="https://twitter.com/intent/tweet?url=<%= request.original_url %>" class="fab fa-twitter-square fa-w-14 fa-2x" id="share" target="blank"></a>
       </div>
-    </p>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-orange" data-dismiss="modal">Close</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-orange" data-dismiss="modal" id="update-meetle">Close</button>
+      </div>
     </div>
   </div>
-</div>
 </div>
