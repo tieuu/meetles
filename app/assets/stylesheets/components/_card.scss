@@ -29,8 +29,8 @@
   align-items: flex-end;
   position: center;
   background-color: $meetle-gray;
-  border-left:    3px solid ;
-  border-right:  3px solid ;
+  border-left: 3px solid;
+  border-right: 3px solid;
 }
 
 .card-result .card-result-infos {
@@ -73,7 +73,7 @@
 }
 
 .card-border {
-  border: 3px solid ;
+  border: 3px solid;
 }
 
 .card-result-head .topright {
@@ -86,6 +86,15 @@
   &:hover {
     color: $meetle-orange;
   }
+}
+
+.card-result-head .float-icon {
+  position: absolute;
+  top: -15px;
+  left: 0px;
+  border-radius: 50%;
+  border: 3px solid;
+  background: none;
 }
 
 .card-stations {
@@ -122,9 +131,9 @@
 }
 
 .card-border-results {
-  border-left: 3px solid ;
-  border-right: 3px solid ;
-  border-bottom: 3px solid ;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  border-bottom: 3px solid;
   display: block;
   width: 300px;
   display: block;
